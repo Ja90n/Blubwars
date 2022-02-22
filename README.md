@@ -1,2 +1,2 @@
-# blubwars
+# Blubwars
 bedwars... with cats
