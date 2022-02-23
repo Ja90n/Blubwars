@@ -1,0 +1,4 @@
+com\blub\blubwars\events\entityDeathEvent.class
+com\blub\blubwars\Blubwars.class
+com\blub\blubwars\commands\blubwarsCommand.class
+com\blub\blubwars\commands\blubwarsTabCompleter.class
