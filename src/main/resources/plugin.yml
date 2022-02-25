@@ -7,5 +7,4 @@ website: www.blubdev.com
 commands:
   blubwars:
     aliases:
-      - blub
       - bw
