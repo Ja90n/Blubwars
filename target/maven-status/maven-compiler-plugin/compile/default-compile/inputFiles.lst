@@ -1,4 +1,10 @@
-C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\commands\blubwarsTabCompleter.java
-C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\events\entityDeathEvent.java
-C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\commands\blubwarsCommand.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\GameState.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\Listeners\ConnectListener.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\manager\ArenaManager.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\instance\Countdown.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\instance\Arena.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\command\ArenaCommand.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\instance\Game.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\Listeners\GameListener.java
 C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\Blubwars.java
+C:\Users\Jadon\Documents\GitHub\blubwars\src\main\java\com\blub\blubwars\manager\configManager.java

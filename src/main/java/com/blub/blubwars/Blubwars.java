@@ -1,5 +1,8 @@
 package com.blub.blubwars;
 
+import com.blub.blubwars.Listeners.ConnectListener;
+import com.blub.blubwars.Listeners.GameListener;
+import com.blub.blubwars.command.ArenaCommand;
 import com.blub.blubwars.manager.ArenaManager;
 import com.blub.blubwars.manager.configManager;
 import org.bukkit.Bukkit;
@@ -15,8 +18,15 @@ public final class Blubwars extends JavaPlugin {
         // Setup config
         configManager.setupConfig(this);
 
-        //
-         arenaManager = new ArenaManager(this);
+        // Creating arenaManager
+        arenaManager = new ArenaManager(this);
+
+        // Register listeners
+        Bukkit.getPluginManager().registerEvents(new GameListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new ConnectListener(this), this);
+
+        // Register command
+        getCommand("blubwars").setExecutor(new ArenaCommand(this));
 
         // Enable message
         Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "Enabling the " + ChatColor.BOLD.toString() + ChatColor.LIGHT_PURPLE + "Blub" + ChatColor.BOLD.toString() + ChatColor.WHITE + "wars" + ChatColor.RESET.toString() + ChatColor.BLUE + " plugin!");
@@ -26,7 +36,7 @@ public final class Blubwars extends JavaPlugin {
     @Override
     public void onDisable() {
         // Disable message
-        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Disabled the " + ChatColor.BOLD.toString() + ChatColor.LIGHT_PURPLE + "Blub" + ChatColor.BOLD.toString() + ChatColor.WHITE + "wars" + ChatColor.RESET.toString() + ChatColor.RED + " plugin!");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Disabled the " + ChatColor.BOLD.toString() + ChatColor.LIGHT_PURPLE + "Blubwars" + ChatColor.RESET.toString() + ChatColor.RED + " plugin!");
         Bukkit.getConsoleSender().sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for playing!");
     }
 
