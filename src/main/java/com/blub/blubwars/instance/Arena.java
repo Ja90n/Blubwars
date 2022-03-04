@@ -16,7 +16,6 @@ public class Arena {
 
     private Blubwars blubwars;
 
-    public int start;
     private int id;
     private Location spawn;
 
