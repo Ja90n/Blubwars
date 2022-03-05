@@ -1,6 +1,7 @@
 package com.blub.blubwars.instance;
 
 import com.blub.blubwars.GameState;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -23,12 +24,14 @@ public class Game {
 
         for (UUID uuid : arena.getPlayers()){
             points.put(uuid, 0);
+            Bukkit.getPlayer(uuid).closeInventory();
         }
+
     }
 
     public void addPoint(Player player){
         int playerPoints = points.get(player.getUniqueId()) + 1;
-        if (playerPoints == 20){
+        if (playerPoints == 10){
             arena.sendMessage(ChatColor.LIGHT_PURPLE + player.getName() + " has won! :)");
             arena.reset(true);
         } else {
