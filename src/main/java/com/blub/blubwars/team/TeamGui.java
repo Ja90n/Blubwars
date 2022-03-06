@@ -12,7 +12,7 @@ public class TeamGui {
 
     public TeamGui(Arena arena, Player player){
 
-        Inventory gui = Bukkit.createInventory(null, 54, ChatColor.LIGHT_PURPLE + "Team Selection");
+        Inventory gui = Bukkit.createInventory(null, 9, ChatColor.LIGHT_PURPLE + "Team Selection");
 
         for (Team team : Team.values()){
             ItemStack is = new ItemStack(team.getMaterial());

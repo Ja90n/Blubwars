@@ -2,8 +2,7 @@ package com.blub.blubwars.manager;
 
 import com.blub.blubwars.instance.Arena;
 import com.blub.blubwars.Blubwars;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -14,16 +13,24 @@ public class ArenaManager {
 
     private List<Arena> arenas = new ArrayList<>();
 
+
     public ArenaManager (Blubwars blubwars){
-        FileConfiguration config = blubwars.getConfig();
-        for (String str : config.getConfigurationSection("arenas.").getKeys(false)){
-            arenas.add(new Arena(blubwars, Integer.parseInt(str), new Location(
-                    Bukkit.getWorld(config.getString("arenas." + str + ".world")),
-                    config.getDouble("arenas." + str + ".x"),
-                    config.getDouble("arenas." + str + ".y"),
-                    config.getDouble("arenas." + str + ".z"),
-                    (float) config.getDouble("arenas." + str + ".yaw"),
-                    (float) config.getDouble("arenas." + str + ".pitch"))));
+        try {
+            FileConfiguration config = blubwars.getConfig();
+            for (String str : config.getConfigurationSection("arenas.").getKeys(false)){
+                World world = Bukkit.createWorld(new WorldCreator(config.getString("arenas." + str + ".lobby.world")));
+                world.setAutoSave(false);
+
+                arenas.add(new Arena(blubwars, Integer.parseInt(str), new Location(
+                        Bukkit.getWorld(config.getString("arenas." + str + ".lobby.world")),
+                        config.getDouble("arenas." + str + ".lobby.x"),
+                        config.getDouble("arenas." + str + ".lobby.y"),
+                        config.getDouble("arenas." + str + ".lobby.z"),
+                        (float) config.getDouble("arenas." + str + ".lobby.yaw"),
+                        (float) config.getDouble("arenas." + str + ".lobby.pitch"))));
+            }
+        } catch (NullPointerException e){
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "The config file is not set up correctly");
         }
     }
 
@@ -41,6 +48,15 @@ public class ArenaManager {
     public Arena getArena(int id){
         for (Arena arena : arenas){
             if (arena.getId() == id){
+                return arena;
+            }
+        }
+        return null;
+    }
+
+    public Arena getArena(World world){
+        for (Arena arena : arenas){
+            if (arena.getWorld().getName().equals(world.getName())){
                 return arena;
             }
         }

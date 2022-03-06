@@ -7,7 +7,7 @@ public enum Team {
 
     RED(ChatColor.RED + "Red", Material.RED_CONCRETE),
     BLUE(ChatColor.BLUE + "Blue", Material.BLUE_CONCRETE),
-    GREEM(ChatColor.GREEN + "Green", Material.GREEN_CONCRETE),
+    GREEN(ChatColor.GREEN + "Green", Material.GREEN_CONCRETE),
     PINK(ChatColor.LIGHT_PURPLE + "Pink", Material.PINK_CONCRETE);
 
     private String display;

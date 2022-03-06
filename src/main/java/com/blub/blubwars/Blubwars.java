@@ -37,9 +37,8 @@ public final class Blubwars extends JavaPlugin {
     public void onDisable() {
         // Kicking all players from their games
         for (Arena arena : arenaManager.getArenas()){
-            new Arena(this, arena.getId(), configManager.getLobbySpawn()).reset(true);
+            arena.reset();
         }
-
         // Disable message
         Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Disabled the " + ChatColor.BOLD.toString() + ChatColor.LIGHT_PURPLE + "Blubwars" + ChatColor.RESET.toString() + ChatColor.RED + " plugin!");
         Bukkit.getConsoleSender().sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for playing!");

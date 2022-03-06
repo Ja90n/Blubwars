@@ -5,9 +5,7 @@ import com.blub.blubwars.GameState;
 import com.blub.blubwars.manager.configManager;
 import com.blub.blubwars.team.Team;
 import com.google.common.collect.TreeMultimap;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
 
@@ -28,6 +26,8 @@ public class Arena {
     private HashMap<UUID, Team> teams;
     private Countdown countdown;
     private Game game;
+    private boolean canJoin;
+    private Location redspawn,bluespawn,greenspawn,pinkspawn;
 
     public Arena(Blubwars blubwars, int id, Location spawn){
         this.blubwars = blubwars;
@@ -41,6 +41,36 @@ public class Arena {
 
         this.countdown = new Countdown(blubwars, this);
         this.game = new Game(this);
+        this.canJoin = true;
+
+        this.redspawn = new Location(
+                getWorld(),
+                blubwars.getConfig().getDouble("arenas." + id + ".red.x"),
+                blubwars.getConfig().getDouble("arenas." + id + ".red.y"),
+                blubwars.getConfig().getDouble("arenas." + id + ".red.z"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + ".red.yaw"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + ".red.pitch"));
+        this.bluespawn = new Location(
+                getWorld(),
+                blubwars.getConfig().getDouble("arenas." + id + ".blue.x"),
+                blubwars.getConfig().getDouble("arenas." + id + ".blue.y"),
+                blubwars.getConfig().getDouble("arenas." + id + ".blue.z"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + ".blue.yaw"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + ".blue.pitch"));
+        this.greenspawn = new Location(
+                getWorld(),
+                blubwars.getConfig().getDouble("arenas." + id + ".green.x"),
+                blubwars.getConfig().getDouble("arenas." + id + ".green.y"),
+                blubwars.getConfig().getDouble("arenas." + id + ".green.z"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + ".green.yaw"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + ".green.pitch"));
+        this.pinkspawn = new Location(
+                getWorld(),
+                blubwars.getConfig().getDouble("arenas." + id + ".pink.x"),
+                blubwars.getConfig().getDouble("arenas." + id + ".pink.y"),
+                blubwars.getConfig().getDouble("arenas." + id + ".pink.z"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + ".pink.yaw"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + ".pink.pitch"));
     }
 
     // Games
@@ -49,14 +79,20 @@ public class Arena {
         game.start();
     }
 
-    public void reset(boolean kickPlayers){
-        if (kickPlayers){
+    public void reset(){
+        if (state.equals(GameState.LIVE)){
+            setCanJoin(false);
             Location lobbyspawn = configManager.getLobbySpawn();
             for (UUID uuid : players){
                 Bukkit.getPlayer(uuid).teleport(lobbyspawn);
             }
             players.clear();
             teams.clear();
+
+            String worldname = spawn.getWorld().getName();
+            Bukkit.unloadWorld(spawn.getWorld(), false);
+            World world = Bukkit.createWorld(new WorldCreator(worldname));
+            world.setAutoSave(false);
         }
         sendTitle("", "");
         state = GameState.RECRUITING;
@@ -83,7 +119,6 @@ public class Arena {
 
     public void addPlayer(Player player){
         players.add(player.getUniqueId());
-        player.teleport(spawn);
 
         TreeMultimap<Integer, Team> count = TreeMultimap.create();
         for (Team team : Team.values()){
@@ -92,6 +127,8 @@ public class Arena {
 
         Team lowest = (Team) count.values().toArray()[0];
         setTeam(player, lowest);
+
+        player.teleport(spawn);
 
         player.sendMessage(ChatColor.BLUE + "You have been placed in " + lowest.getDisplay());
 
@@ -109,24 +146,28 @@ public class Arena {
 
         if (state == GameState.COUNTDOWN && players.size() < configManager.getRequiredPlayers()){
             sendMessage(ChatColor.RED + "There are not enough players, countdown stopped!");
-            reset(false);
+            reset();
             return;
         }
 
         if (state == GameState.LIVE && players.size() < configManager.getRequiredPlayers()){
             sendMessage(ChatColor.RED + "The game has ended as to many players have left.");
-            reset(true);
+            reset();
         }
     }
 
     // Manager
 
     public int getId() { return id; }
+    public World getWorld(){ return spawn.getWorld();}
 
     public GameState getState() { return state; }
     public List<UUID> getPlayers() { return players; }
 
     public Game getGame () { return game; }
+
+    public boolean getCanJoin() { return canJoin; }
+    public void setCanJoin(Boolean canjoin) { this.canJoin = canjoin; }
 
     public void setState(GameState state) { this.state = state; }
 
@@ -152,4 +193,11 @@ public class Arena {
     }
 
     public Team getTeam (Player player){ return teams.get(player.getUniqueId()); }
+    public HashMap<UUID, Team> getTeams (){ return teams; }
+
+    public Location getRedspawn() { return redspawn;}
+    public Location getBluespawn() { return bluespawn;}
+    public Location getGreenspawn() { return greenspawn;}
+    public Location getPinkspawn() { return pinkspawn;}
+
 }
