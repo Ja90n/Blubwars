@@ -5,12 +5,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class configManager {
+public class ConfigManager {
 
     private static FileConfiguration config;
 
     public static void setupConfig (Blubwars blubwars){
-        configManager.config = blubwars.getConfig();
+        ConfigManager.config = blubwars.getConfig();
         blubwars.saveDefaultConfig();
     }
 

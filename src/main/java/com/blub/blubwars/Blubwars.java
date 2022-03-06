@@ -1,12 +1,12 @@
 package com.blub.blubwars;
 
-import com.blub.blubwars.Listeners.ConnectListener;
-import com.blub.blubwars.Listeners.GameListener;
+import com.blub.blubwars.listener.ConnectListener;
+import com.blub.blubwars.listener.GameListener;
 import com.blub.blubwars.command.MainCommand;
 import com.blub.blubwars.command.MainTabCompleter;
 import com.blub.blubwars.instance.Arena;
 import com.blub.blubwars.manager.ArenaManager;
-import com.blub.blubwars.manager.configManager;
+import com.blub.blubwars.manager.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,7 +18,7 @@ public final class Blubwars extends JavaPlugin {
     @Override
     public void onEnable() {
         // Setup config
-        configManager.setupConfig(this);
+        ConfigManager.setupConfig(this);
 
         // Creating arenaManager
         arenaManager = new ArenaManager(this);

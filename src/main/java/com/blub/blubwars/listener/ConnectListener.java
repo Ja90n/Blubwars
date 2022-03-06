@@ -1,8 +1,8 @@
-package com.blub.blubwars.Listeners;
+package com.blub.blubwars.listener;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.instance.Arena;
-import com.blub.blubwars.manager.configManager;
+import com.blub.blubwars.manager.ConfigManager;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +19,7 @@ public class ConnectListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
-        e.getPlayer().teleport(configManager.getLobbySpawn());
+        e.getPlayer().teleport(ConfigManager.getLobbySpawn());
         e.setJoinMessage(e.getPlayer().getDisplayName() + ChatColor.LIGHT_PURPLE + " has joined the server!");
     }
 

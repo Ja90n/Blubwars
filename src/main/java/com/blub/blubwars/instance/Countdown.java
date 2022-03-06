@@ -2,7 +2,7 @@ package com.blub.blubwars.instance;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.GameState;
-import com.blub.blubwars.manager.configManager;
+import com.blub.blubwars.manager.ConfigManager;
 import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -15,7 +15,7 @@ public class Countdown extends BukkitRunnable {
     public Countdown(Blubwars blubwars, Arena arena){
         this.blubwars = blubwars;
         this.arena = arena;
-        this.countdownSeconds = configManager.getCountdownSeconds()+1;
+        this.countdownSeconds = ConfigManager.getCountdownSeconds()+1;
     }
 
     public void start(){

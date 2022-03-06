@@ -2,11 +2,10 @@ package com.blub.blubwars.instance;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.GameState;
-import com.blub.blubwars.manager.configManager;
+import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.team.Team;
 import com.google.common.collect.TreeMultimap;
 import org.bukkit.*;
-import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class Arena {
     public void reset(){
         if (state.equals(GameState.LIVE)){
             setCanJoin(false);
-            Location lobbyspawn = configManager.getLobbySpawn();
+            Location lobbyspawn = ConfigManager.getLobbySpawn();
             for (UUID uuid : players){
                 Bukkit.getPlayer(uuid).teleport(lobbyspawn);
             }
@@ -132,25 +131,25 @@ public class Arena {
 
         player.sendMessage(ChatColor.BLUE + "You have been placed in " + lowest.getDisplay());
 
-        if (state.equals(GameState.RECRUITING) && players.size() >= configManager.getRequiredPlayers()){
+        if (state.equals(GameState.RECRUITING) && players.size() >= ConfigManager.getRequiredPlayers()){
             countdown.start();
         }
     }
 
     public void removePlayer(Player player){
         players.remove(player.getUniqueId());
-        player.teleport(configManager.getLobbySpawn());
+        player.teleport(ConfigManager.getLobbySpawn());
         player.sendTitle("", "");
 
         removeTeam(player);
 
-        if (state == GameState.COUNTDOWN && players.size() < configManager.getRequiredPlayers()){
+        if (state == GameState.COUNTDOWN && players.size() < ConfigManager.getRequiredPlayers()){
             sendMessage(ChatColor.RED + "There are not enough players, countdown stopped!");
             reset();
             return;
         }
 
-        if (state == GameState.LIVE && players.size() < configManager.getRequiredPlayers()){
+        if (state == GameState.LIVE && players.size() < ConfigManager.getRequiredPlayers()){
             sendMessage(ChatColor.RED + "The game has ended as to many players have left.");
             reset();
         }

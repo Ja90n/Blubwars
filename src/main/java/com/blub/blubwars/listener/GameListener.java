@@ -1,4 +1,4 @@
-package com.blub.blubwars.Listeners;
+package com.blub.blubwars.listener;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.GameState;
