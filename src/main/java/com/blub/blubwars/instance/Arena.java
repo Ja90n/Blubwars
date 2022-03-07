@@ -25,7 +25,6 @@ public class Arena {
     private HashMap<UUID, Team> teams;
     private Countdown countdown;
     private Game game;
-    private boolean canJoin;
     private Location redspawn,bluespawn,greenspawn,pinkspawn;
 
     public Arena(Blubwars blubwars, int id, Location spawn){
@@ -40,7 +39,6 @@ public class Arena {
 
         this.countdown = new Countdown(blubwars, this);
         this.game = new Game(this);
-        this.canJoin = true;
 
         this.redspawn = new Location(
                 getWorld(),
@@ -80,23 +78,19 @@ public class Arena {
 
     public void reset(){
         if (state.equals(GameState.LIVE)){
-            setCanJoin(false);
             Location lobbyspawn = ConfigManager.getLobbySpawn();
             for (UUID uuid : players){
                 Bukkit.getPlayer(uuid).teleport(lobbyspawn);
             }
             players.clear();
             teams.clear();
-
-            String worldname = spawn.getWorld().getName();
-            Bukkit.unloadWorld(spawn.getWorld(), false);
-            World world = Bukkit.createWorld(new WorldCreator(worldname));
-            world.setAutoSave(false);
         }
         sendTitle("", "");
         state = GameState.RECRUITING;
-        countdown.cancel();
-        countdown = new Countdown(blubwars, this);
+        try {
+            countdown.cancel();
+            countdown = new Countdown(blubwars, this);
+        } catch (IllegalStateException e){}
         game = new Game(this);
     }
 
@@ -164,9 +158,6 @@ public class Arena {
     public List<UUID> getPlayers() { return players; }
 
     public Game getGame () { return game; }
-
-    public boolean getCanJoin() { return canJoin; }
-    public void setCanJoin(Boolean canjoin) { this.canJoin = canjoin; }
 
     public void setState(GameState state) { this.state = state; }
 

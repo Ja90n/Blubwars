@@ -17,12 +17,8 @@ public class JoinGameEvent {
             arena = blubwars.getArenaManager().getArena(Integer.parseInt(args[1]));
             if (arena.getId() >= 0 && arena.getId() < blubwars.getArenaManager().getArenas().size()) {
                 if (arena.getState().equals(GameState.RECRUITING) || arena.getState().equals(GameState.COUNTDOWN)) {
-                    if (arena.getCanJoin()) {
-                        player.sendMessage(ChatColor.BLUE + "You are now playing in arena " + arena.getId() + "!");
-                        arena.addPlayer(player);
-                    } else {
-                        player.sendMessage(ChatColor.RED + "You can't join right now. Map still loading!");
-                    }
+                    player.sendMessage(ChatColor.BLUE + "You are now playing in arena " + arena.getId() + "!");
+                    arena.addPlayer(player);
                 } else {
                     player.sendMessage(ChatColor.RED + "Game is already active!");
                 }

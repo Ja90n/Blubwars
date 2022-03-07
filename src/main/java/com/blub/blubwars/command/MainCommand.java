@@ -2,6 +2,7 @@ package com.blub.blubwars.command;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.command.commands.*;
+import com.blub.blubwars.team.TeamGui;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -29,6 +30,9 @@ public class MainCommand implements CommandExecutor {
                             break;
                         case "leave":
                             new LeaveGameCommand(player,blubwars);
+                            break;
+                        case "team":
+                            new TeamGui(player,blubwars);
                             break;
                         default:
                             new HelpCommand(player);

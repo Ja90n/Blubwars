@@ -10,21 +10,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.world.WorldLoadEvent;
 
 public class GameListener implements Listener {
 
     private Blubwars blubwars;
     public GameListener(Blubwars blubwars) {
         this.blubwars = blubwars;
-    }
-
-    @EventHandler
-    public void onWorldLoad(WorldLoadEvent e){
-        Arena arena = blubwars.getArenaManager().getArena(e.getWorld());
-        if (arena != null){
-            arena.setCanJoin(true);
-        }
     }
 
     @EventHandler
