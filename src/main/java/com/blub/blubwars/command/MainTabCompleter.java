@@ -21,19 +21,41 @@ public class MainTabCompleter implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 1){
-            result.add("help");
-            result.add("join");
-            result.add("leave");
-            result.add("list");
-        } else if (args.length == 2){
-            if (args[1].equals("join")){
-                for (Arena arena : blubwars.getArenaManager().getArenas()){
-                    result.add(Integer.toString(arena.getId()));
+        switch (args.length){
+            case 1:
+                result.add("help");
+                result.add("join");
+                result.add("leave");
+                result.add("list");
+                if (sender.hasPermission("blubwars.admin")){
+                    result.add("admin");
                 }
-            } else if (args[1].equals("admin")) {
-
-            }
+                break;
+            case 2:
+                switch (args[1]){
+                    case "join":
+                        for (Arena arena : blubwars.getArenaManager().getArenas()){
+                            result.add(Integer.toString(arena.getId()));
+                        }
+                        break;
+                    case "admin":
+                        if (sender.hasPermission("blubwars.admin")){
+                            result.add("help");
+                            result.add("start");
+                            result.add("stop");
+                            result.add("list");
+                        }
+                        break;
+                }
+            case 3:
+                switch (args[2]){
+                    case "start":
+                    case "stop":
+                        for (Arena arena : blubwars.getArenaManager().getArenas()){
+                            result.add(Integer.toString(arena.getId()));
+                        }
+                        break;
+                }
         }
         return result;
     }

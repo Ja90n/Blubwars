@@ -16,7 +16,7 @@ public class JoinGameEvent {
         try {
             int arenaId = Integer.parseInt(args[1]);
             if (arenaId >= 0 && arenaId < blubwars.getArenaManager().getArenas().size()) {
-                if (arena.getState().equals(GameState.RECRUITING) || arena.getState().equals(GameState.COUNTDOWN)) {
+                if (blubwars.getArenaManager().getArena(arenaId).getState().equals(GameState.RECRUITING) || blubwars.getArenaManager().getArena(arenaId).getState().equals(GameState.COUNTDOWN)) {
                     if (arena.getCanJoin()) {
                         player.sendMessage(ChatColor.BLUE + "You are now playing in arena " + arena.getId() + "!");
                         arena.addPlayer(player);
