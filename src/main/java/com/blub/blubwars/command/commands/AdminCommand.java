@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
 public class AdminCommand {
     public AdminCommand(Player player, Blubwars blubwars, String[] args){
         if (player.hasPermission("blubwars.admin")){
-            switch (args[2]){
+            switch (args[1]){
                 case "stop":
-                    new AdminStopCommand(player,args[2],blubwars);
+                    new AdminStopCommand(player,args,blubwars);
                     break;
                 case "start":
-                    new AdminStartCommand(player,args[2],blubwars);
+                    new AdminStartCommand(player,args,blubwars);
                     break;
                 case "list":
                     new AdminListAllAreansCommand(player,blubwars);

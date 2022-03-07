@@ -9,6 +9,7 @@ lobby-spawn:
   pitch: 0
 arenas:
   0:
+    name: 'SandCastle'
     lobby:
       world: 'SandCastle'
       x: 0.5
@@ -41,13 +42,14 @@ arenas:
       yaw: 150
       pitch: 11
   1:
+    name: 'Glacier'
     lobby:
       world: 'world'
       x: 4.5
       y: -60
       z: 15.5
       yaw: -150
-     pitch: 11
+      pitch: 11
     red:
       x: 12.5
       y: -60

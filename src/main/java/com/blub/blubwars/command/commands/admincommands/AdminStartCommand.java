@@ -8,11 +8,10 @@ import org.bukkit.entity.Player;
 
 public class AdminStartCommand {
 
-    public AdminStartCommand(Player player, String id, Blubwars blubwars){
+    public AdminStartCommand(Player player, String[] args, Blubwars blubwars){
         try {
-            int arenaId = Integer.parseInt(id);
-            Arena arena = blubwars.getArenaManager().getArena(arenaId);
-            if (arenaId >= 0 && arenaId < blubwars.getArenaManager().getArenas().size()) {
+            Arena arena = blubwars.getArenaManager().getArena(Integer.parseInt(args[2]));
+            if (arena.getId() >= 0 && arena.getId() < blubwars.getArenaManager().getArenas().size()) {
                 if (arena.getState().equals(GameState.RECRUITING) || arena.getState().equals(GameState.COUNTDOWN)) {
                     if (arena.getPlayers().size() > 0){
                         arena.start();
@@ -26,7 +25,7 @@ public class AdminStartCommand {
             } else {
                 player.sendMessage(ChatColor.RED + "The arena you specified does not exist!");
             }
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             player.sendMessage(ChatColor.RED + "You need to fill in a number!");
         }
     }

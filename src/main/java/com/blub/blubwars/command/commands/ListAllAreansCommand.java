@@ -22,13 +22,15 @@ public class ListAllAreansCommand {
             } else {
                 unJoinableArenas.add(arena);
             }
-            player.sendMessage(ChatColor.BLUE + "- " + arena.getId() + "(" + arena.getState().name() + ", " + ")");
+            player.sendMessage(ChatColor.BLUE + "- " + arena.getId() + " (" + arena.getState().name() + ")");
         }
-        if (joinableArenas.size() != 0){
-            player.sendMessage(ChatColor.BLUE + "You can join the following arenas:");
+        if (!joinableArenas.isEmpty()){
+            player.sendMessage(ChatColor.AQUA + "You can join the following arenas:");
             for (Arena arena : joinableArenas){
-                player.sendMessage(ChatColor.BLUE + "- " + arena.getId() + ChatColor.GRAY + " (Players: " + arena.getPlayers().size() + ")");
+                player.sendMessage(ChatColor.AQUA + "- " + arena.getId() + ChatColor.GRAY + " (Players: " + arena.getPlayers().size() + ")");
             }
+        }
+        if (!unJoinableArenas.isEmpty()){
             player.sendMessage(ChatColor.RED + "The following arenas are live:");
             for (Arena arena : unJoinableArenas){
                 player.sendMessage(ChatColor.RED + "- " + arena.getId() + ChatColor.GRAY + " (Players: " + arena.getPlayers().size() + ")");

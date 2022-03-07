@@ -23,6 +23,7 @@ public class MainTabCompleter implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         switch (args.length){
             case 1:
+                result.clear();
                 result.add("help");
                 result.add("join");
                 result.add("leave");
@@ -32,13 +33,15 @@ public class MainTabCompleter implements TabCompleter {
                 }
                 break;
             case 2:
-                switch (args[1]){
+                switch (args[0]){
                     case "join":
+                        result.clear();
                         for (Arena arena : blubwars.getArenaManager().getArenas()){
                             result.add(Integer.toString(arena.getId()));
                         }
                         break;
                     case "admin":
+                        result.clear();
                         if (sender.hasPermission("blubwars.admin")){
                             result.add("help");
                             result.add("start");
@@ -48,9 +51,10 @@ public class MainTabCompleter implements TabCompleter {
                         break;
                 }
             case 3:
-                switch (args[2]){
+                switch (args[1]){
                     case "start":
                     case "stop":
+                        result.clear();
                         for (Arena arena : blubwars.getArenaManager().getArenas()){
                             result.add(Integer.toString(arena.getId()));
                         }

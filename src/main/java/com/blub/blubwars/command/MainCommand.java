@@ -48,6 +48,11 @@ public class MainCommand implements CommandExecutor {
                             break;
                     }
                     break;
+                case 3:
+                    if (args[0].equals("admin")){
+                        new AdminCommand(player,blubwars,args);
+                        break;
+                    }
                 default:
                     new HelpCommand(player);
                     break;
