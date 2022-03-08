@@ -49,21 +49,25 @@ public class GameListener implements Listener {
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent e){
-
-        Arena arena = blubwars.getArenaManager().getArena(e.getPlayer());
-        if (arena != null && arena.getState().equals(GameState.LIVE)){
-            arena.getGame().addPoint(e.getPlayer());
-        }
-    }
-
-    @EventHandler
     public void onDeath(EntityDeathEvent e){
         if (e.getEntity() instanceof Cat){
             Cat cat = (Cat) e.getEntity();
             for (Arena arena : blubwars.getArenaManager().getArenas()){
                 if (arena.getGame().getCatLives().containsKey(cat)){
-                    new Game(arena).removeCatLive(cat);
+                    switch (cat.getCollarColor()){
+                        case RED:
+                            new Game(arena).removeCatLive(cat,Team.RED);
+                            break;
+                        case BLUE:
+                            new Game(arena).removeCatLive(cat,Team.BLUE);
+                            break;
+                        case GREEN:
+                            new Game(arena).removeCatLive(cat,Team.GREEN);
+                            break;
+                        case PINK:
+                            new Game(arena).removeCatLive(cat,Team.PINK);
+                            break;
+                    }
                 }
             }
         }

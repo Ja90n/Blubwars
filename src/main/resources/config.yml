@@ -1,5 +1,6 @@
 required-players: 1
 countdown-seconds: 10
+cat-lives: 9
 lobby-spawn:
   world: 'world'
   x: 8.5

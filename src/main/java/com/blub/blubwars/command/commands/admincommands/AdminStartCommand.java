@@ -25,7 +25,7 @@ public class AdminStartCommand {
             } else {
                 player.sendMessage(ChatColor.RED + "The arena you specified does not exist!");
             }
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             player.sendMessage(ChatColor.RED + "You need to fill in a number!");
         }
     }

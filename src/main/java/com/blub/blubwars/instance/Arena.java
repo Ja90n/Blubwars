@@ -6,6 +6,7 @@ import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.team.Team;
 import com.google.common.collect.TreeMultimap;
 import org.bukkit.*;
+import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -184,11 +185,39 @@ public class Arena {
     }
 
     public Team getTeam (Player player){ return teams.get(player.getUniqueId()); }
+    public Team getTeam (Cat cat){
+        if (cat.getCollarColor().equals(DyeColor.RED)){
+            return Team.RED;
+        } else if (cat.getCollarColor().equals(DyeColor.BLUE)){
+            return Team.BLUE;
+        } else if (cat.getCollarColor().equals(DyeColor.GREEN)){
+            return Team.GREEN;
+        } else if (cat.getCollarColor().equals(DyeColor.PINK)){
+            return Team.PINK;
+        } else {
+            return null;
+        }
+    }
+
     public HashMap<UUID, Team> getTeams (){ return teams; }
 
     public Location getRedspawn() { return redspawn;}
     public Location getBluespawn() { return bluespawn;}
     public Location getGreenspawn() { return greenspawn;}
     public Location getPinkspawn() { return pinkspawn;}
+
+    public Location getTeamSpawn(Team team){
+        if (team.equals(Team.RED)){
+            return redspawn;
+        } else if (team.equals(Team.BLUE)){
+            return bluespawn;
+        } else if (team.equals(Team.GREEN)){
+            return greenspawn;
+        } else if (team.equals(Team.PINK)){
+            return pinkspawn;
+        } else {
+            return null;
+        }
+    }
 
 }
