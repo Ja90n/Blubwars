@@ -84,6 +84,7 @@ public class Arena {
             }
             players.clear();
             teams.clear();
+            game.clearCatLives();
         }
         sendTitle("", "");
         state = GameState.RECRUITING;
