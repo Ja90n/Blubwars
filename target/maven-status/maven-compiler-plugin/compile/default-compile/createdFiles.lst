@@ -3,9 +3,9 @@ com\blub\blubwars\instance\Countdown.class
 com\blub\blubwars\command\MainTabCompleter.class
 com\blub\blubwars\GameState.class
 com\blub\blubwars\manager\ConfigManager.class
+com\blub\blubwars\instance\Game$1.class
 com\blub\blubwars\listener\ConnectListener.class
 com\blub\blubwars\command\commands\admincommands\AdminListAllAreansCommand.class
-com\blub\blubwars\listener\GameListener$1.class
 com\blub\blubwars\manager\ArenaManager.class
 com\blub\blubwars\instance\Arena.class
 com\blub\blubwars\instance\Game.class

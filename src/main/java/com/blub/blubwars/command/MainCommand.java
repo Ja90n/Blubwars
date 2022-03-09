@@ -2,8 +2,7 @@ package com.blub.blubwars.command;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.command.commands.*;
-import com.blub.blubwars.team.TeamGui;
-import org.bukkit.Bukkit;
+import com.blub.blubwars.gui.TeamGui;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

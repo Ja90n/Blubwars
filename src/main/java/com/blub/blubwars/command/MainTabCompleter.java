@@ -28,6 +28,7 @@ public class MainTabCompleter implements TabCompleter {
                 result.add("join");
                 result.add("leave");
                 result.add("list");
+                result.add("team");
                 if (sender.hasPermission("blubwars.admin")){
                     result.add("admin");
                 }

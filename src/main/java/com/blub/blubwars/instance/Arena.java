@@ -3,7 +3,7 @@ package com.blub.blubwars.instance;
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.GameState;
 import com.blub.blubwars.manager.ConfigManager;
-import com.blub.blubwars.team.Team;
+import com.blub.blubwars.Team;
 import com.google.common.collect.TreeMultimap;
 import org.bukkit.*;
 import org.bukkit.entity.Cat;

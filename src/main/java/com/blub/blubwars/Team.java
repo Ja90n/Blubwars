@@ -1,4 +1,4 @@
-package com.blub.blubwars.team;
+package com.blub.blubwars;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

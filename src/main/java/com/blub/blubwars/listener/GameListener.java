@@ -1,19 +1,17 @@
 package com.blub.blubwars.listener;
 
 import com.blub.blubwars.Blubwars;
-import com.blub.blubwars.GameState;
 import com.blub.blubwars.instance.Arena;
-import com.blub.blubwars.instance.Game;
-import com.blub.blubwars.team.Team;
+import com.blub.blubwars.Team;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 import java.util.HashMap;
 
@@ -57,6 +55,13 @@ public class GameListener implements Listener {
                     arena.getGame().respawnCat(cat.getUniqueId());
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onEntityClick(PlayerInteractAtEntityEvent e){
+        if (e.getRightClicked() instanceof Villager){
+
         }
     }
 }

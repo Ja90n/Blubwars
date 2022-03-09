@@ -2,20 +2,20 @@ package com.blub.blubwars.instance;
 
 import com.blub.blubwars.GameState;
 import com.blub.blubwars.manager.ConfigManager;
-import com.blub.blubwars.team.Team;
+import com.blub.blubwars.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
 
-import java.time.chrono.JapaneseEra;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class Game {
 
     private HashMap<UUID, Integer> catLives;
+    private HashMap<Team,UUID> villagerShops;
     private Arena arena;
 
     public Game(Arena arena) {
@@ -63,8 +63,10 @@ public class Game {
         Cat respawnedCat = (Cat) Bukkit.getEntity(catUUID);
         if (catLives.get(catUUID) > 1){
             Cat newCat = (Cat) arena.getWorld().spawnEntity(arena.getTeamSpawn(arena.getTeam(catUUID)), EntityType.CAT);
+            catLives.put(newCat.getUniqueId(), catLives.get(catUUID));
+            catLives.remove(catUUID);
             newCat.setCollarColor(respawnedCat.getCollarColor());
-            newCat.setCustomName(arena.getTeam(catUUID).getDisplay() + " cat, lives: " + catLives.get(catUUID));
+            newCat.setCustomName(arena.getTeam(catUUID).getDisplay() + " cat, lives: " + catLives.get(newCat.getUniqueId()));
         } else {
             catLives.remove(catUUID);
             if (catLives.size() < 2){

@@ -19,27 +19,27 @@ arenas:
       yaw: 0
       pitch: 0
     red:
-      x: 12.5
-      y: -60
-      z: 15.5
+      x: 3.
+      y: 126
+      z: 0.5
       yaw: 150
       pitch: 11
     blue:
-      x: 12.5
-      y: -60
-      z: 15.5
+      x: 0.5
+      y: 126
+      z: 3.5
       yaw: 150
       pitch: 11
     green:
-      x: 12.5
-      y: -60
-      z: 15.5
+      x: -2.5
+      y: 126
+      z: 0.5
       yaw: 150
       pitch: 11
     pink:
-      x: 12.5
-      y: -60
-      z: 15.5
+      x: 0.5
+      y: 126
+      z: -2.5
       yaw: 150
       pitch: 11
   1:
