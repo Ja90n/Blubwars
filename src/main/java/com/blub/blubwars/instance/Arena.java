@@ -185,7 +185,9 @@ public class Arena {
     }
 
     public Team getTeam (Player player){ return teams.get(player.getUniqueId()); }
-    public Team getTeam (Cat cat){
+
+    public Team getTeam (UUID catUUID){
+        Cat cat = (Cat) Bukkit.getEntity(catUUID);
         if (cat.getCollarColor().equals(DyeColor.RED)){
             return Team.RED;
         } else if (cat.getCollarColor().equals(DyeColor.BLUE)){
@@ -199,12 +201,32 @@ public class Arena {
         }
     }
 
-    public HashMap<UUID, Team> getTeams (){ return teams; }
+    public UUID getCatUUID(Team team){
+        UUID uuid = null;
+        for (UUID catUUID : game.getCatLives().keySet()){
+            Cat cat = (Cat) Bukkit.getEntity(catUUID);
+            if (team.equals(Team.RED)){
+                if (cat.getCollarColor().equals(DyeColor.RED)){
+                    uuid = catUUID;
+                }
+            } else if (team.equals(Team.BLUE)){
+                if (cat.getCollarColor().equals(DyeColor.BLUE)){
+                    uuid = catUUID;
+                }
+            } else if (team.equals(Team.GREEN)){
+                if (cat.getCollarColor().equals(DyeColor.GREEN)){
+                    uuid = catUUID;
+                }
+            } else if (team.equals(Team.PINK)){
+                if (cat.getCollarColor().equals(DyeColor.PINK)){
+                    uuid = catUUID;
+                }
+            }
+        }
+        return uuid;
+    }
 
-    public Location getRedspawn() { return redspawn;}
-    public Location getBluespawn() { return bluespawn;}
-    public Location getGreenspawn() { return greenspawn;}
-    public Location getPinkspawn() { return pinkspawn;}
+    public HashMap<UUID, Team> getTeams (){ return teams; }
 
     public Location getTeamSpawn(Team team){
         if (team.equals(Team.RED)){

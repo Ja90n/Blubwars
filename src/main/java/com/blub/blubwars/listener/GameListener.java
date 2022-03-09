@@ -53,21 +53,8 @@ public class GameListener implements Listener {
         if (e.getEntity() instanceof Cat){
             Cat cat = (Cat) e.getEntity();
             for (Arena arena : blubwars.getArenaManager().getArenas()){
-                if (arena.getGame().getCatLives().containsKey(cat)){
-                    switch (cat.getCollarColor()){
-                        case RED:
-                            new Game(arena).removeCatLive(cat,Team.RED);
-                            break;
-                        case BLUE:
-                            new Game(arena).removeCatLive(cat,Team.BLUE);
-                            break;
-                        case GREEN:
-                            new Game(arena).removeCatLive(cat,Team.GREEN);
-                            break;
-                        case PINK:
-                            new Game(arena).removeCatLive(cat,Team.PINK);
-                            break;
-                    }
+                if (arena.getGame().getCatLives().containsKey(cat.getUniqueId())){
+                    arena.getGame().respawnCat(cat.getUniqueId());
                 }
             }
         }

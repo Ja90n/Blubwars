@@ -9,28 +9,24 @@ import org.bukkit.DyeColor;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
 
+import java.time.chrono.JapaneseEra;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class Game {
 
-    private HashMap<Cat, Integer> catLives;
+    private HashMap<UUID, Integer> catLives;
     private Arena arena;
-    private HashMap<UUID, Integer> points;
 
     public Game(Arena arena) {
         this.arena = arena;
-        points = new HashMap<>();
         catLives = new HashMap<>();
     }
 
     public void start() {
         arena.setState(GameState.LIVE);
-        arena.sendMessage(ChatColor.BLUE + "Game has started!");
-        for (UUID uuid : arena.getPlayers()) {
-            points.put(uuid, 0);
-            Bukkit.getPlayer(uuid).closeInventory();
-        }
+        arena.sendMessage(ChatColor.AQUA + "Game has started!");
+        arena.sendTitle(ChatColor.GRAY + "Game has started!", " ");
         for (Team team : Team.values()){
             if (team != null){
                 if (arena.getTeamCount(team) > 0){
@@ -40,46 +36,51 @@ public class Game {
         }
     }
 
-    public void removeCatLive(Cat cat,Team team){
-        catLives.put(cat,catLives.get(cat)-1);
-        if (catLives.get(cat) > 0){
-            spawnCat(team);
+    public void spawnCat(Team team){
+        Cat cat = (Cat) arena.getWorld().spawnEntity(arena.getTeamSpawn(team), EntityType.CAT);
+        catLives.put(cat.getUniqueId(), ConfigManager.getCatLives());
+        DyeColor dyeColor = DyeColor.WHITE;
+        switch (team){
+            case RED:
+                dyeColor = DyeColor.RED;
+                break;
+            case BLUE:
+                dyeColor = DyeColor.BLUE;
+                break;
+            case GREEN:
+                dyeColor = DyeColor.GREEN;
+                break;
+            case PINK:
+                dyeColor = DyeColor.PINK;
+                break;
+        }
+        cat.setCollarColor(dyeColor);
+        cat.setCustomName(team.getDisplay() + " cat, lives: " + catLives.get(cat.getUniqueId()));
+    }
+
+    public void respawnCat(UUID catUUID){
+        catLives.replace(catUUID, catLives.get(catUUID)-1);
+        Cat respawnedCat = (Cat) Bukkit.getEntity(catUUID);
+        if (catLives.get(catUUID) > 1){
+            Cat newCat = (Cat) arena.getWorld().spawnEntity(arena.getTeamSpawn(arena.getTeam(catUUID)), EntityType.CAT);
+            newCat.setCollarColor(respawnedCat.getCollarColor());
+            newCat.setCustomName(arena.getTeam(catUUID).getDisplay() + " cat, lives: " + catLives.get(catUUID));
         } else {
-            catLives.remove(cat);
+            catLives.remove(catUUID);
             if (catLives.size() < 2){
-                for (Cat target : catLives.keySet()){
-                    arena.sendTitle(ChatColor.AQUA + "Team " + target.getCustomName().split(" ")[0],ChatColor.AQUA + "has won the game!");
-                    arena.sendMessage(target.getCustomName().split(" ")[0] + ChatColor.AQUA + " has won!");
+                for (UUID target : catLives.keySet()){
+                    arena.sendMessage(ChatColor.AQUA + "Team " + arena.getTeam(target).getDisplay() +
+                            ChatColor.AQUA + " has won!");
+                    arena.sendTitle(ChatColor.AQUA + "Team " + arena.getTeam(target).getDisplay() +
+                            ChatColor.AQUA + " has won!", ChatColor.GRAY + "Thank you for playing!");
                 }
-                arena.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for playing - Blubdev");
                 arena.reset();
+            } else {
+                arena.sendMessage(arena.getTeam(catUUID).getDisplay() + ChatColor.AQUA + " teams cat has been eliminated!");
             }
         }
     }
 
-    public void spawnCat(Team team){
-        Cat cat = (Cat) arena.getWorld().spawnEntity(arena.getTeamSpawn(team), EntityType.CAT);
-        if (catLives.containsKey(cat)){
-            catLives.put(cat,catLives.get(cat)-1);
-        } else {
-            catLives.put(cat, ConfigManager.getCatLives());
-        }
-        cat.setCustomName(team.getDisplay() + " cat, lives: " + catLives.get(cat));
-        DyeColor dyeColor = DyeColor.WHITE;
-        if (team.equals(Team.RED)){
-            dyeColor = DyeColor.RED;
-        } else if (team.equals(Team.BLUE)){
-            dyeColor = DyeColor.BLUE;
-        } else if (team.equals(Team.GREEN)){
-            dyeColor = DyeColor.GREEN;
-        } else if (team.equals(Team.PINK)){
-            dyeColor = DyeColor.PINK;
-        }
-        cat.setCollarColor(dyeColor);
-    }
-
-
-
-    public HashMap<Cat,Integer> getCatLives() { return catLives; }
+    public HashMap<UUID,Integer> getCatLives() { return catLives; }
     public void clearCatLives() {  catLives.clear(); }
 }
