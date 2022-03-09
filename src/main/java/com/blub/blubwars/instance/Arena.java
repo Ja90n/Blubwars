@@ -85,7 +85,16 @@ public class Arena {
             }
             players.clear();
             teams.clear();
-            game.clearCatLives();
+            for (UUID catUUID : game.getCatLives().keySet()){
+                Bukkit.getEntity(catUUID).remove();
+                game.getCatLives().remove(catUUID);
+            }
+            game.getCatLives().clear();
+            for (UUID villagerUUID : game.getVillagerShop().values()){
+                Bukkit.getEntity(villagerUUID).remove();
+                game.getVillagerShop().remove(villagerUUID);
+            }
+            game.getVillagerShop().clear();
         }
         sendTitle("", "");
         state = GameState.RECRUITING;

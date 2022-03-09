@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Villager;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class Game {
     public Game(Arena arena) {
         this.arena = arena;
         catLives = new HashMap<>();
+        villagerShops = new HashMap<>();
     }
 
     public void start() {
@@ -31,9 +33,19 @@ public class Game {
             if (team != null){
                 if (arena.getTeamCount(team) > 0){
                     spawnCat(team);
+                    spawnVillagerShop(team);
                 }
             }
         }
+    }
+
+    public void spawnVillagerShop(Team team){
+        Villager villager = (Villager) arena.getWorld().spawnEntity(arena.getTeamSpawn(team), EntityType.VILLAGER);
+        villager.setProfession(Villager.Profession.NITWIT);
+        villager.setVillagerType(Villager.Type.SNOW);
+        villager.setAI(false);
+        villager.setPersistent(true);
+        villagerShops.put(team, villager.getUniqueId());
     }
 
     public void spawnCat(Team team){
@@ -84,5 +96,6 @@ public class Game {
     }
 
     public HashMap<UUID,Integer> getCatLives() { return catLives; }
+    public HashMap<Team,UUID> getVillagerShop() { return villagerShops; }
     public void clearCatLives() {  catLives.clear(); }
 }

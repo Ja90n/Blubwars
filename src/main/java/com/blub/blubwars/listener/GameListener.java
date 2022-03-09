@@ -1,6 +1,7 @@
 package com.blub.blubwars.listener;
 
 import com.blub.blubwars.Blubwars;
+import com.blub.blubwars.gui.ShopGui;
 import com.blub.blubwars.instance.Arena;
 import com.blub.blubwars.Team;
 import org.bukkit.ChatColor;
@@ -12,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 
@@ -43,6 +46,16 @@ public class GameListener implements Listener {
             }
             player.closeInventory();
             e.setCancelled(true);
+        } else if (e.getInventory() != null && e.getCurrentItem() != null && e.getView().getTitle().contains("Shop")){
+            if (e.getSlot() == 10){
+                Player player = (Player) e.getWhoClicked();
+                ItemStack wool = new ItemStack(blubwars.getArenaManager().getArena(player).getTeam(player).getMaterial());
+                ItemMeta woolMeta = wool.getItemMeta();
+                woolMeta.setDisplayName(blubwars.getArenaManager().getArena(player).getTeam(player).getDisplay() + " wool");
+                wool.setItemMeta(woolMeta);
+                e.getWhoClicked().getInventory().addItem(wool);
+            }
+            e.setCancelled(true);
         }
     }
 
@@ -61,7 +74,11 @@ public class GameListener implements Listener {
     @EventHandler
     public void onEntityClick(PlayerInteractAtEntityEvent e){
         if (e.getRightClicked() instanceof Villager){
-
+            for (Arena arena : blubwars.getArenaManager().getArenas()){
+                if (arena.getGame().getVillagerShop().containsValue(e.getRightClicked().getUniqueId())){
+                    new ShopGui(e.getPlayer(), blubwars, arena);
+                }
+            }
         }
     }
 }
