@@ -1,7 +1,7 @@
 package com.blub.blubwars.command.commands.admincommands;
 
 import com.blub.blubwars.Blubwars;
-import com.blub.blubwars.GameState;
+import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.instance.Arena;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

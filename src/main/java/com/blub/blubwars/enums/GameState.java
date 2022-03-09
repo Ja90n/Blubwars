@@ -1,4 +1,4 @@
-package com.blub.blubwars;
+package com.blub.blubwars.enums;
 
 public enum GameState {
 

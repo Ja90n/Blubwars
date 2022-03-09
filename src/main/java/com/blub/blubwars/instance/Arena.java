@@ -1,9 +1,11 @@
 package com.blub.blubwars.instance;
 
 import com.blub.blubwars.Blubwars;
-import com.blub.blubwars.GameState;
+import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
-import com.blub.blubwars.Team;
+import com.blub.blubwars.enums.Team;
+import com.blub.blubwars.runnable.Countdown;
+import com.blub.blubwars.runnable.Dropper;
 import com.google.common.collect.TreeMultimap;
 import org.bukkit.*;
 import org.bukkit.entity.Cat;
@@ -39,7 +41,7 @@ public class Arena {
         this.teams = new HashMap<>();
 
         this.countdown = new Countdown(blubwars, this);
-        this.game = new Game(this);
+        this.game = new Game(this,blubwars);
 
         this.redspawn = new Location(
                 getWorld(),
@@ -95,6 +97,7 @@ public class Arena {
                 game.getVillagerShop().remove(villagerUUID);
             }
             game.getVillagerShop().clear();
+            new Dropper(this,blubwars).cancel();
         }
         sendTitle("", "");
         state = GameState.RECRUITING;
@@ -102,7 +105,7 @@ public class Arena {
             countdown.cancel();
             countdown = new Countdown(blubwars, this);
         } catch (IllegalStateException e){}
-        game = new Game(this);
+        game = new Game(this,blubwars);
     }
 
     // Tools

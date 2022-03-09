@@ -5,6 +5,7 @@ import com.blub.blubwars.listener.GameListener;
 import com.blub.blubwars.command.MainCommand;
 import com.blub.blubwars.command.MainTabCompleter;
 import com.blub.blubwars.instance.Arena;
+import com.blub.blubwars.listener.GuiListeners;
 import com.blub.blubwars.manager.ArenaManager;
 import com.blub.blubwars.manager.ConfigManager;
 import org.bukkit.Bukkit;
@@ -26,6 +27,7 @@ public final class Blubwars extends JavaPlugin {
         // Register listeners
         Bukkit.getPluginManager().registerEvents(new GameListener(this), this);
         Bukkit.getPluginManager().registerEvents(new ConnectListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new GuiListeners(this), this);
 
         // Register command
         getCommand("blubwars").setExecutor(new MainCommand(this));

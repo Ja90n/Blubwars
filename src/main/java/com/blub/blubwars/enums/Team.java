@@ -1,4 +1,4 @@
-package com.blub.blubwars;
+package com.blub.blubwars.enums;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

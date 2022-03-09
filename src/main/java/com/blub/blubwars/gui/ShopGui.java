@@ -1,7 +1,6 @@
 package com.blub.blubwars.gui;
 
 import com.blub.blubwars.Blubwars;
-import com.blub.blubwars.Team;
 import com.blub.blubwars.instance.Arena;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,6 +27,7 @@ public class ShopGui {
         ItemMeta woolMeta = wool.getItemMeta();
         woolMeta.setDisplayName(arena.getTeam(player).getDisplay() + " wool");
         wool.setItemMeta(woolMeta);
+        wool.setAmount(4);
         shopgui.setItem(10,wool);
 
         player.openInventory(shopgui);

@@ -1,8 +1,10 @@
 package com.blub.blubwars.instance;
 
-import com.blub.blubwars.GameState;
+import com.blub.blubwars.Blubwars;
+import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
-import com.blub.blubwars.Team;
+import com.blub.blubwars.enums.Team;
+import com.blub.blubwars.runnable.Dropper;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -15,11 +17,13 @@ import java.util.UUID;
 
 public class Game {
 
+    private Blubwars blubwars;
     private HashMap<UUID, Integer> catLives;
     private HashMap<Team,UUID> villagerShops;
     private Arena arena;
 
-    public Game(Arena arena) {
+    public Game(Arena arena, Blubwars blubwars) {
+        this.blubwars = blubwars;
         this.arena = arena;
         catLives = new HashMap<>();
         villagerShops = new HashMap<>();
@@ -34,6 +38,7 @@ public class Game {
                 if (arena.getTeamCount(team) > 0){
                     spawnCat(team);
                     spawnVillagerShop(team);
+                    new Dropper(arena,blubwars);
                 }
             }
         }
@@ -45,6 +50,7 @@ public class Game {
         villager.setVillagerType(Villager.Type.SNOW);
         villager.setAI(false);
         villager.setPersistent(true);
+        villager.setCustomName(team.getDisplay() + "s villager");
         villagerShops.put(team, villager.getUniqueId());
     }
 

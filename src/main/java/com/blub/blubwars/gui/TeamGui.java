@@ -1,7 +1,7 @@
 package com.blub.blubwars.gui;
 
 import com.blub.blubwars.Blubwars;
-import com.blub.blubwars.Team;
+import com.blub.blubwars.enums.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
