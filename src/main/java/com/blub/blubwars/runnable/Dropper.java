@@ -30,6 +30,7 @@ public class Dropper extends BukkitRunnable {
                 teamDroppers.put(team,arena.getTeamSpawn(team));
             }
         }
+        arena.sendMessage(ChatColor.GRAY + "Dropper initiated");
         runTaskTimer(blubwars, 0,20);
     }
 
@@ -48,11 +49,13 @@ public class Dropper extends BukkitRunnable {
         if (timeRun % 2 == 0){
             for (Location location : teamDroppers.values()){
                 arena.getWorld().dropItem(location,cod);
+                arena.sendMessage(ChatColor.GRAY + "Drop cod");
             }
         }
         if (timeRun % 10 == 0){
             for (Location location : teamDroppers.values()){
                 arena.getWorld().dropItem(location,salmon);
+                arena.sendMessage(ChatColor.GRAY + "Drop salmon");
             }
         }
         timeRun++;

@@ -14,7 +14,6 @@ public class ConfigManager {
         blubwars.saveDefaultConfig();
     }
 
-
     public static int getRequiredPlayers() { return config.getInt("required-players");}
     public static int getCountdownSeconds() { return config.getInt("countdown-seconds");}
     public static int getCatLives() { return config.getInt("cat-lives");}

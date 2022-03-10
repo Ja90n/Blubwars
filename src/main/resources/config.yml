@@ -42,6 +42,18 @@ arenas:
       z: -2.5
       yaw: 150
       pitch: 11
+    pos1:
+      x: 0.5
+      y: 126
+      z: -2.5
+      yaw: 150
+      pitch: 11
+    pos2:
+      x: 0.5
+      y: 126
+      z: -2.5
+      yaw: 150
+      pitch: 11
   1:
     name: 'Glacier'
     lobby:
@@ -73,5 +85,17 @@ arenas:
       x: 12.5
       y: -60
       z: 15.5
+      yaw: 150
+      pitch: 11
+    pos1:
+      x: 0.5
+      y: 126
+      z: -2.5
+      yaw: 150
+      pitch: 11
+    pos2:
+      x: 0.5
+      y: 126
+      z: -2.5
       yaw: 150
       pitch: 11

@@ -18,6 +18,7 @@ import java.util.UUID;
 public class Game {
 
     private Blubwars blubwars;
+    private Dropper dropper;
     private HashMap<UUID, Integer> catLives;
     private HashMap<Team,UUID> villagerShops;
     private Arena arena;
@@ -25,6 +26,7 @@ public class Game {
     public Game(Arena arena, Blubwars blubwars) {
         this.blubwars = blubwars;
         this.arena = arena;
+        this.dropper = new Dropper(arena,blubwars);
         catLives = new HashMap<>();
         villagerShops = new HashMap<>();
     }
@@ -38,7 +40,7 @@ public class Game {
                 if (arena.getTeamCount(team) > 0){
                     spawnCat(team);
                     spawnVillagerShop(team);
-                    new Dropper(arena,blubwars);
+                    dropper.start();
                 }
             }
         }
@@ -103,5 +105,6 @@ public class Game {
 
     public HashMap<UUID,Integer> getCatLives() { return catLives; }
     public HashMap<Team,UUID> getVillagerShop() { return villagerShops; }
+    public Dropper getDropper() { return dropper; }
     public void clearCatLives() {  catLives.clear(); }
 }

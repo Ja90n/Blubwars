@@ -1,6 +1,7 @@
 package com.blub.blubwars.instance;
 
 import com.blub.blubwars.Blubwars;
+import com.blub.blubwars.ResetArena;
 import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
@@ -97,7 +98,8 @@ public class Arena {
                 game.getVillagerShop().remove(villagerUUID);
             }
             game.getVillagerShop().clear();
-            new Dropper(this,blubwars).cancel();
+            game.getDropper().cancel();
+            new ResetArena(this,blubwars);
         }
         sendTitle("", "");
         state = GameState.RECRUITING;
