@@ -1,14 +1,14 @@
 package com.blub.blubwars.instance;
 
 import com.blub.blubwars.Blubwars;
-import com.blub.blubwars.ResetArena;
+import com.blub.blubwars.utils.ResetArena;
 import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
 import com.blub.blubwars.runnable.Countdown;
-import com.blub.blubwars.runnable.Dropper;
 import com.google.common.collect.TreeMultimap;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
 
@@ -85,7 +85,10 @@ public class Arena {
             Location lobbyspawn = ConfigManager.getLobbySpawn();
             for (UUID uuid : players){
                 Bukkit.getPlayer(uuid).teleport(lobbyspawn);
+                Bukkit.getPlayer(uuid).getInventory().clear();
+                Bukkit.getPlayer(uuid).getEnderChest().clear();
             }
+            game.getDropper().cancel();
             players.clear();
             teams.clear();
             for (UUID catUUID : game.getCatLives().keySet()){
@@ -98,7 +101,6 @@ public class Arena {
                 game.getVillagerShop().remove(villagerUUID);
             }
             game.getVillagerShop().clear();
-            game.getDropper().cancel();
             new ResetArena(this,blubwars);
         }
         sendTitle("", "");
@@ -139,6 +141,8 @@ public class Arena {
 
         player.teleport(spawn);
 
+        player.getInventory().clear();
+
         player.sendMessage(ChatColor.BLUE + "You have been placed in " + lowest.getDisplay());
 
         if (state.equals(GameState.RECRUITING) && players.size() >= ConfigManager.getRequiredPlayers()){
@@ -148,6 +152,7 @@ public class Arena {
 
     public void removePlayer(Player player){
         players.remove(player.getUniqueId());
+        player.getInventory().clear();
         player.teleport(ConfigManager.getLobbySpawn());
         player.sendTitle("", "");
 

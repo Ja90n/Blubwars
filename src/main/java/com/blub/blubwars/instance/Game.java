@@ -5,11 +5,11 @@ import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
 import com.blub.blubwars.runnable.Dropper;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 
 import java.util.HashMap;
@@ -33,26 +33,41 @@ public class Game {
 
     public void start() {
         arena.setState(GameState.LIVE);
-        arena.sendMessage(ChatColor.AQUA + "Game has started!");
-        arena.sendTitle(ChatColor.GRAY + "Game has started!", " ");
+        arena.getWorld().setTime(0);
+        arena.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        arena.getWorld().setGameRule(GameRule.DO_MOB_SPAWNING, false);
+
+        arena.sendTitle(ChatColor.GRAY + "Game has started!", ChatColor.LIGHT_PURPLE + "Good luck with killing cats!");
+
+        for (UUID uuid : arena.getPlayers()){
+            Player player = Bukkit.getPlayer(uuid);
+            player.teleport(arena.getTeamSpawn(arena.getTeam(player)));
+        }
+
         for (Team team : Team.values()){
             if (team != null){
+                arena.sendMessage("team go " + team.getDisplay());
                 if (arena.getTeamCount(team) > 0){
+                    arena.sendMessage("team cat " + team.getDisplay());
                     spawnCat(team);
+                    arena.sendMessage("team villager " + team.getDisplay());
                     spawnVillagerShop(team);
-                    dropper.start();
                 }
             }
         }
+        dropper.start();
+        arena.sendMessage(ChatColor.AQUA + "Game has started!");
     }
 
     public void spawnVillagerShop(Team team){
         Villager villager = (Villager) arena.getWorld().spawnEntity(arena.getTeamSpawn(team), EntityType.VILLAGER);
         villager.setProfession(Villager.Profession.NITWIT);
         villager.setVillagerType(Villager.Type.SNOW);
-        villager.setAI(false);
         villager.setPersistent(true);
-        villager.setCustomName(team.getDisplay() + "s villager");
+        villager.setSilent(true);
+        villager.setAI(false);
+        villager.setInvulnerable(true);
+        villager.setCustomName(team.getDisplay() + " villager");
         villagerShops.put(team, villager.getUniqueId());
     }
 
@@ -74,37 +89,14 @@ public class Game {
                 dyeColor = DyeColor.PINK;
                 break;
         }
+        cat.setSilent(true);
+        cat.setTamed(true);
+        cat.setSitting(true);
         cat.setCollarColor(dyeColor);
         cat.setCustomName(team.getDisplay() + " cat, lives: " + catLives.get(cat.getUniqueId()));
-    }
-
-    public void respawnCat(UUID catUUID){
-        catLives.replace(catUUID, catLives.get(catUUID)-1);
-        Cat respawnedCat = (Cat) Bukkit.getEntity(catUUID);
-        if (catLives.get(catUUID) > 1){
-            Cat newCat = (Cat) arena.getWorld().spawnEntity(arena.getTeamSpawn(arena.getTeam(catUUID)), EntityType.CAT);
-            catLives.put(newCat.getUniqueId(), catLives.get(catUUID));
-            catLives.remove(catUUID);
-            newCat.setCollarColor(respawnedCat.getCollarColor());
-            newCat.setCustomName(arena.getTeam(catUUID).getDisplay() + " cat, lives: " + catLives.get(newCat.getUniqueId()));
-        } else {
-            catLives.remove(catUUID);
-            if (catLives.size() < 2){
-                for (UUID target : catLives.keySet()){
-                    arena.sendMessage(ChatColor.AQUA + "Team " + arena.getTeam(target).getDisplay() +
-                            ChatColor.AQUA + " has won!");
-                    arena.sendTitle(ChatColor.AQUA + "Team " + arena.getTeam(target).getDisplay() +
-                            ChatColor.AQUA + " has won!", ChatColor.GRAY + "Thank you for playing!");
-                }
-                arena.reset();
-            } else {
-                arena.sendMessage(arena.getTeam(catUUID).getDisplay() + ChatColor.AQUA + " teams cat has been eliminated!");
-            }
-        }
     }
 
     public HashMap<UUID,Integer> getCatLives() { return catLives; }
     public HashMap<Team,UUID> getVillagerShop() { return villagerShops; }
     public Dropper getDropper() { return dropper; }
-    public void clearCatLives() {  catLives.clear(); }
 }

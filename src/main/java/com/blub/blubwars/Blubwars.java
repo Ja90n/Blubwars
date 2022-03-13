@@ -1,11 +1,9 @@
 package com.blub.blubwars;
 
-import com.blub.blubwars.listener.ConnectListener;
-import com.blub.blubwars.listener.GameListener;
+import com.blub.blubwars.listener.*;
 import com.blub.blubwars.command.MainCommand;
 import com.blub.blubwars.command.MainTabCompleter;
 import com.blub.blubwars.instance.Arena;
-import com.blub.blubwars.listener.GuiListeners;
 import com.blub.blubwars.manager.ArenaManager;
 import com.blub.blubwars.manager.ConfigManager;
 import org.bukkit.Bukkit;
@@ -26,8 +24,10 @@ public final class Blubwars extends JavaPlugin {
 
         // Register listeners
         Bukkit.getPluginManager().registerEvents(new GameListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new BlockListeners(this), this);
         Bukkit.getPluginManager().registerEvents(new ConnectListener(this), this);
         Bukkit.getPluginManager().registerEvents(new GuiListeners(this), this);
+        Bukkit.getPluginManager().registerEvents(new ItemListeners(this), this);
 
         // Register command
         getCommand("blubwars").setExecutor(new MainCommand(this));
@@ -40,6 +40,9 @@ public final class Blubwars extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        for (Arena arena : getArenaManager().getArenas()){
+            arena.reset();
+        }
         // Disable message
         Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Disabled the " + ChatColor.BOLD.toString() +
                 ChatColor.LIGHT_PURPLE + "Blubwars" + ChatColor.RESET.toString() + ChatColor.RED + " plugin!");

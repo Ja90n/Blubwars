@@ -1,10 +1,12 @@
-package com.blub.blubwars;
+package com.blub.blubwars.utils;
 
+import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.instance.Arena;
 import com.blub.blubwars.instance.Cuboid;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
 
 
 public class ResetArena{
@@ -28,8 +30,10 @@ public class ResetArena{
             if (block.getType().equals(Material.RED_WOOL) || block.getType().equals(Material.BLUE_WOOL) ||
                     block.getType().equals(Material.GREEN_WOOL) || block.getType().equals(Material.PINK_WOOL)){
                 block.setType(Material.AIR);
+            } else if (block.getType().equals(Material.CHEST)){
+                Chest chest = (Chest) block;
+                chest.getBlockInventory().clear();
             }
         }
-
     }
 }

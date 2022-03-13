@@ -19,7 +19,7 @@ arenas:
       yaw: 0
       pitch: 0
     red:
-      x: 3.
+      x: 3
       y: 126
       z: 0.5
       yaw: 150
@@ -46,14 +46,10 @@ arenas:
       x: 0.5
       y: 126
       z: -2.5
-      yaw: 150
-      pitch: 11
     pos2:
       x: 0.5
       y: 126
       z: -2.5
-      yaw: 150
-      pitch: 11
   1:
     name: 'Glacier'
     lobby:
