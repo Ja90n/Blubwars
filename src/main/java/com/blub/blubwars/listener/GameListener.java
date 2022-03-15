@@ -32,6 +32,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.WeatherEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.jar.JarEntry;
@@ -81,7 +82,7 @@ public class GameListener implements Listener {
         if (blubwars.getArenaManager().getArena(e.getEntity().getPlayer()) != null) {
             if (blubwars.getArenaManager().getArena(e.getEntity().getPlayer()).getState().equals(GameState.LIVE)){
                 Player player = e.getEntity();
-                Arena arena = blubwars.getArenaManager().getArena(player);
+                e.getDrops().removeIf(is -> !(is.getType().equals(Material.COD) || is.getType().equals(Material.SALMON)));
                 new PlayerRespawn(player,blubwars.getArenaManager().
                         getArena(e.getEntity().getPlayer()), blubwars).start();
             }

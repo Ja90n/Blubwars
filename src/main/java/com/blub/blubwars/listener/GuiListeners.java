@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GuiListeners implements Listener {
 
@@ -70,9 +71,16 @@ public class GuiListeners implements Listener {
                         ItemStack shears = new ItemStack(Material.SHEARS);
                         ItemMeta shearsMeta = shears.getItemMeta();
                         shearsMeta.setDisplayName(ChatColor.GRAY + "Shears");
-                        shears.addEnchantment(Enchantment.DIG_SPEED, 5);
+                        shearsMeta.addEnchant(Enchantment.DIG_SPEED, 5,true);
                         shears.setItemMeta(shearsMeta);
                         new GivePlayerItem(player,new ItemStack(Material.COD),shears,5,1);
+                        break;
+                    case 14:
+                        ItemStack feather = new ItemStack(Material.FEATHER);
+                        ItemMeta featherMeta = feather.getItemMeta();
+                        featherMeta.setDisplayName(ChatColor.GRAY + "Parachute");
+                        feather.setItemMeta(featherMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.COD),feather,10,1);
                         break;
                 }
             }

@@ -107,9 +107,7 @@ public class Arena {
                 game.getVillagerShop().remove(villagerUUID);
             }
             game.getVillagerShop().clear();
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"/world sandcastle");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"/schem load SandCastle.schem");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"/paste -o");
+            new ResetArena(this);
         }
         sendTitle("", "");
         state = GameState.RECRUITING;

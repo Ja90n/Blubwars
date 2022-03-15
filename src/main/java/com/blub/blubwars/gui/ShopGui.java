@@ -58,16 +58,26 @@ public class ShopGui {
         fireball.setItemMeta(fireballMeta);
         shopgui.setItem(12,fireball);
 
-        // Fireball
+        // Shears
         List shearsLore = new ArrayList<>();
         shearsLore.add(ChatColor.GRAY + "Cost: 5 " + ChatColor.GRAY + "Cod");
         ItemStack shears = new ItemStack(Material.SHEARS);
         ItemMeta shearsMeta = shears.getItemMeta();
         shearsMeta.setLore(shearsLore);
         shearsMeta.setDisplayName(ChatColor.GRAY + "Shears");
-        shears.addEnchantment(Enchantment.DIG_SPEED, 5);
+        shearsMeta.addEnchant(Enchantment.DIG_SPEED, 5,true);
         shears.setItemMeta(shearsMeta);
         shopgui.setItem(13,shears);
+
+        // Feather
+        List featherLore = new ArrayList<>();
+        featherLore.add(ChatColor.GRAY + "Cost: 10 " + ChatColor.GRAY + "Cod");
+        ItemStack feather = new ItemStack(Material.FEATHER);
+        ItemMeta featherMeta = feather.getItemMeta();
+        featherMeta.setLore(featherLore);
+        featherMeta.setDisplayName(ChatColor.GRAY + "Parachute");
+        feather.setItemMeta(featherMeta);
+        shopgui.setItem(14,feather);
 
         player.openInventory(shopgui);
     }

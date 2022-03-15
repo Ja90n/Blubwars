@@ -42,7 +42,7 @@ public class CatRespawn extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (catLivesInt-1 > 1){
+        if (catLivesInt-1 > 0){
             if (!(timeRun == 0)){
                 Bukkit.getEntity(hollograms.get(team)).remove();
                 hollograms.remove(team);
@@ -85,7 +85,7 @@ public class CatRespawn extends BukkitRunnable {
             }
         } else {
             catLives.remove(arena.getCatUUID(team));
-            if (catLives.size() <= 1){
+            if (catLives.size() <= 0){
                 for (UUID target : catLives.keySet()){
                     arena.sendMessage(ChatColor.AQUA + "Team " + arena.getTeam(target).getDisplay() +
                             ChatColor.AQUA + " has won!");

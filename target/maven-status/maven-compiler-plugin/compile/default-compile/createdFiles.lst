@@ -9,6 +9,7 @@ com\blub\blubwars\instance\Game$1.class
 com\blub\blubwars\command\commands\admincommands\AdminListAllAreansCommand.class
 com\blub\blubwars\runnable\CatRespawn$1.class
 com\blub\blubwars\runnable\Countdown.class
+com\blub\blubwars\utils\NoPlacingCuboids.class
 com\blub\blubwars\command\MainCommand.class
 com\blub\blubwars\command\commands\AdminCommand.class
 com\blub\blubwars\command\commands\JoinGameEvent.class

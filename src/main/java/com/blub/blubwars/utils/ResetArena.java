@@ -3,6 +3,7 @@ package com.blub.blubwars.utils;
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.instance.Arena;
 import com.blub.blubwars.instance.Cuboid;
+import com.blub.blubwars.manager.ConfigManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,28 +12,20 @@ import org.bukkit.block.Chest;
 
 public class ResetArena{
 
-    public ResetArena(Arena arena, Blubwars blubwars){
+    public ResetArena(Arena arena){
 
-        Location pos1 = new Location( arena.getWorld(),
-                blubwars.getConfig().getDouble("arenas." + arena.getId() + ".pos1.x"),
-                blubwars.getConfig().getDouble("arenas." + arena.getId() + ".pos1.y"),
-                blubwars.getConfig().getDouble("arenas." + arena.getId() + ".pos1.z")
+        Cuboid arenaCuboid = new Cuboid(
+                ConfigManager.getPosition(arena,1),
+                ConfigManager.getPosition(arena,2)
         );
-        Location pos2 = new Location( arena.getWorld(),
-                blubwars.getConfig().getDouble("arenas." + arena.getId() + ".pos2.x"),
-                blubwars.getConfig().getDouble("arenas." + arena.getId() + ".pos2.y"),
-                blubwars.getConfig().getDouble("arenas." + arena.getId() + ".pos2.z")
-        );
-
-        Cuboid arenaCuboid = new Cuboid(pos1, pos2);
 
         for (Block block : arenaCuboid.getBlocks()){
             if (block.getType().equals(Material.RED_WOOL) || block.getType().equals(Material.BLUE_WOOL) ||
                     block.getType().equals(Material.GREEN_WOOL) || block.getType().equals(Material.PINK_WOOL)){
                 block.setType(Material.AIR);
             } else if (block.getType().equals(Material.CHEST)){
-                Chest chest = (Chest) block;
-                chest.getBlockInventory().clear();
+                block.setType(Material.AIR);
+                block.setType(Material.CHEST);
             }
         }
     }

@@ -5,14 +5,13 @@ import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
 import com.blub.blubwars.runnable.Dropper;
+import com.blub.blubwars.utils.NoPlacingCuboids;
 import com.blub.blubwars.utils.SetPlayerStartInventory;
 import org.bukkit.*;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -23,11 +22,13 @@ public class Game {
     private Dropper dropper;
     private HashMap<UUID, Integer> catLives;
     private HashMap<Team,UUID> villagerShops;
+    private NoPlacingCuboids noPlacingCuboids;
     private Arena arena;
 
     public Game(Arena arena, Blubwars blubwars) {
         this.blubwars = blubwars;
         this.arena = arena;
+        this.noPlacingCuboids = new NoPlacingCuboids(arena);
         this.dropper = new Dropper(arena,blubwars);
         catLives = new HashMap<>();
         villagerShops = new HashMap<>();
@@ -35,6 +36,7 @@ public class Game {
 
     public void start() {
         arena.setState(GameState.LIVE);
+        noPlacingCuboids.CreateCuboids();
         arena.getWorld().setTime(0);
         arena.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
         arena.getWorld().setGameRule(GameRule.DO_MOB_SPAWNING, false);
@@ -103,4 +105,5 @@ public class Game {
     public HashMap<UUID,Integer> getCatLives() { return catLives; }
     public HashMap<Team,UUID> getVillagerShop() { return villagerShops; }
     public Dropper getDropper() { return dropper; }
+    public NoPlacingCuboids getNoPlacingCuboids() { return noPlacingCuboids; }
 }

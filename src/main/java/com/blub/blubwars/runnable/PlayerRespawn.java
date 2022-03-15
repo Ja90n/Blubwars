@@ -37,6 +37,7 @@ public class PlayerRespawn extends BukkitRunnable {
         player.sendTitle(ChatColor.GRAY + "You are respawning in ", ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + countDown + " seconds");
         if (timeRun == 5){
             player.setInvisible(false);
+            player.setInvulnerable(true);
             player.sendTitle("","");
             new SetPlayerStartInventory(player,blubwars);
             player.teleport(arena.getTeamSpawn(arena.getTeam(player)));

@@ -3,10 +3,7 @@ package com.blub.blubwars.listener;
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.instance.Arena;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Fireball;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -16,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
+import org.spigotmc.event.entity.EntityDismountEvent;
 
 public class ItemListeners implements Listener {
 
@@ -34,7 +32,19 @@ public class ItemListeners implements Listener {
                 fireball.setVelocity(player.getLocation().getDirection().multiply(2));
                 fireball.setIsIncendiary(false);
                 player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
+            } else if (player.getInventory().getItemInMainHand().getType().equals(Material.FEATHER)){
+                Chicken chicken = (Chicken) player.getWorld().spawnEntity(player.getLocation(), EntityType.CHICKEN);
+                chicken.addPassenger(player);
+                chicken.setCustomName("Parachute");
+                player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
             }
+        }
+    }
+
+    @EventHandler
+    public void onEntityDismount(EntityDismountEvent e){
+        if (e.getDismounted().getType().equals(EntityType.CHICKEN)){
+            e.getDismounted().remove();
         }
     }
 
