@@ -5,12 +5,14 @@ import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
 import com.blub.blubwars.runnable.Dropper;
+import com.blub.blubwars.utils.SetPlayerStartInventory;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -42,6 +44,8 @@ public class Game {
         for (UUID uuid : arena.getPlayers()){
             Player player = Bukkit.getPlayer(uuid);
             player.teleport(arena.getTeamSpawn(arena.getTeam(player)));
+            player.setGameMode(GameMode.SURVIVAL);
+            new SetPlayerStartInventory(player,blubwars);
         }
 
         for (Team team : Team.values()){
@@ -60,7 +64,7 @@ public class Game {
     }
 
     public void spawnVillagerShop(Team team){
-        Villager villager = (Villager) arena.getWorld().spawnEntity(arena.getTeamSpawn(team), EntityType.VILLAGER);
+        Villager villager = (Villager) arena.getWorld().spawnEntity(arena.getVillagerSpawn(team), EntityType.VILLAGER);
         villager.setProfession(Villager.Profession.NITWIT);
         villager.setVillagerType(Villager.Type.SNOW);
         villager.setPersistent(true);

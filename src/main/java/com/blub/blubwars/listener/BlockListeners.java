@@ -21,16 +21,14 @@ public class BlockListeners implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e){
         for (Arena arena : blubwars.getArenaManager().getArenas()){
-            if (e.getPlayer().getWorld().equals(arena.getWorld())){
-                if (arena.getState().equals(GameState.LIVE)){
-                    if (!(e.getBlock().getType().equals(Material.RED_WOOL) ||
-                            e.getBlock().getType().equals(Material.BLUE_WOOL) ||
-                            e.getBlock().getType().equals(Material.GREEN_WOOL) ||
-                            e.getBlock().getType().equals(Material.PINK_WOOL)
-                    )){
-                        e.setCancelled(true);
-                        e.getPlayer().sendMessage(ChatColor.RED + "You can not place this block!");
-                    }
+            if (arena.getPlayers().contains(e.getPlayer().getUniqueId())){
+                if (!(e.getBlock().getType().equals(Material.RED_WOOL) ||
+                        e.getBlock().getType().equals(Material.BLUE_WOOL) ||
+                        e.getBlock().getType().equals(Material.GREEN_WOOL) ||
+                        e.getBlock().getType().equals(Material.PINK_WOOL)
+                )){
+                    e.setCancelled(true);
+                    e.getPlayer().sendMessage(ChatColor.RED + "You can not place this block!");
                 }
             }
         }
@@ -39,16 +37,14 @@ public class BlockListeners implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e){
         for (Arena arena : blubwars.getArenaManager().getArenas()){
-            if (e.getPlayer().getWorld().equals(arena.getWorld())){
-                if (arena.getState().equals(GameState.LIVE)){
-                    if (!(e.getBlock().getType().equals(Material.RED_WOOL) ||
-                            e.getBlock().getType().equals(Material.BLUE_WOOL) ||
-                            e.getBlock().getType().equals(Material.GREEN_WOOL) ||
-                            e.getBlock().getType().equals(Material.PINK_WOOL)
-                    )){
-                        e.setCancelled(true);
-                        e.getPlayer().sendMessage(ChatColor.RED + "You can not break this block!");
-                    }
+            if (arena.getPlayers().contains(e.getPlayer().getUniqueId())){
+                if (!(e.getBlock().getType().equals(Material.RED_WOOL) ||
+                        e.getBlock().getType().equals(Material.BLUE_WOOL) ||
+                        e.getBlock().getType().equals(Material.GREEN_WOOL) ||
+                        e.getBlock().getType().equals(Material.PINK_WOOL)
+                )){
+                    e.setCancelled(true);
+                    e.getPlayer().sendMessage(ChatColor.RED + "You can not break this block!");
                 }
             }
         }

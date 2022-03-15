@@ -5,6 +5,7 @@ import com.blub.blubwars.instance.Arena;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -56,6 +57,17 @@ public class ShopGui {
         fireballMeta.setDisplayName(ChatColor.GOLD + "Fireball");
         fireball.setItemMeta(fireballMeta);
         shopgui.setItem(12,fireball);
+
+        // Fireball
+        List shearsLore = new ArrayList<>();
+        shearsLore.add(ChatColor.GRAY + "Cost: 5 " + ChatColor.GRAY + "Cod");
+        ItemStack shears = new ItemStack(Material.SHEARS);
+        ItemMeta shearsMeta = shears.getItemMeta();
+        shearsMeta.setLore(shearsLore);
+        shearsMeta.setDisplayName(ChatColor.GRAY + "Shears");
+        shears.addEnchantment(Enchantment.DIG_SPEED, 5);
+        shears.setItemMeta(shearsMeta);
+        shopgui.setItem(13,shears);
 
         player.openInventory(shopgui);
     }

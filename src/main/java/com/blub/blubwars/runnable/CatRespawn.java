@@ -6,6 +6,7 @@ import com.blub.blubwars.instance.Arena;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.EntityType;
@@ -45,6 +46,8 @@ public class CatRespawn extends BukkitRunnable {
             if (!(timeRun == 0)){
                 Bukkit.getEntity(hollograms.get(team)).remove();
                 hollograms.remove(team);
+            } else {
+                arena.sendMessage(team.getDisplay() + ChatColor.AQUA + " cat has " + (catLivesInt-1) + " lives left!");
             }
             if (!(timeRun == 5)){
                 ArmorStand armorStand = (ArmorStand) arena.getWorld().spawnEntity(arena.getTeamSpawn(team), EntityType.ARMOR_STAND);
@@ -95,10 +98,11 @@ public class CatRespawn extends BukkitRunnable {
                 for (UUID uuid : arena.getPlayers()){
                     Player player = Bukkit.getPlayer(uuid);
                     if (arena.getTeam(player).equals(team)){
-                        arena.removePlayer(player);
+                        player.setGameMode(GameMode.SPECTATOR);
                     }
                 }
             }
+            cancel();
         }
         timeRun++;
     }

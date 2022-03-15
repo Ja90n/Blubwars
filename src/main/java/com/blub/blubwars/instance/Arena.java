@@ -9,8 +9,10 @@ import com.blub.blubwars.runnable.Countdown;
 import com.google.common.collect.TreeMultimap;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +31,6 @@ public class Arena {
     private HashMap<UUID, Team> teams;
     private Countdown countdown;
     private Game game;
-    private Location redspawn,bluespawn,greenspawn,pinkspawn;
 
     public Arena(Blubwars blubwars, int id, Location spawn){
         this.blubwars = blubwars;
@@ -43,35 +44,39 @@ public class Arena {
 
         this.countdown = new Countdown(blubwars, this);
         this.game = new Game(this,blubwars);
+    }
 
-        this.redspawn = new Location(
+    public Location getTeamSpawn(Team team){
+        return new Location(
                 getWorld(),
-                blubwars.getConfig().getDouble("arenas." + id + ".red.x"),
-                blubwars.getConfig().getDouble("arenas." + id + ".red.y"),
-                blubwars.getConfig().getDouble("arenas." + id + ".red.z"),
-                (float) blubwars.getConfig().getDouble("arenas." + id + ".red.yaw"),
-                (float) blubwars.getConfig().getDouble("arenas." + id + ".red.pitch"));
-        this.bluespawn = new Location(
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".team-spawn.x"),
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".team-spawn.y"),
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".team-spawn.z"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".team-spawn.yaw"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".team-spawn.pitch")
+        );
+    }
+
+    public Location getVillagerSpawn(Team team){
+        return new Location(
                 getWorld(),
-                blubwars.getConfig().getDouble("arenas." + id + ".blue.x"),
-                blubwars.getConfig().getDouble("arenas." + id + ".blue.y"),
-                blubwars.getConfig().getDouble("arenas." + id + ".blue.z"),
-                (float) blubwars.getConfig().getDouble("arenas." + id + ".blue.yaw"),
-                (float) blubwars.getConfig().getDouble("arenas." + id + ".blue.pitch"));
-        this.greenspawn = new Location(
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".villager-spawn.x"),
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".villager-spawn.y"),
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".villager-spawn.z"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".villager-spawn.yaw"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".villager-spawn.pitch")
+        );
+    }
+
+    public Location getTeamDropper(Team team){
+        return new Location(
                 getWorld(),
-                blubwars.getConfig().getDouble("arenas." + id + ".green.x"),
-                blubwars.getConfig().getDouble("arenas." + id + ".green.y"),
-                blubwars.getConfig().getDouble("arenas." + id + ".green.z"),
-                (float) blubwars.getConfig().getDouble("arenas." + id + ".green.yaw"),
-                (float) blubwars.getConfig().getDouble("arenas." + id + ".green.pitch"));
-        this.pinkspawn = new Location(
-                getWorld(),
-                blubwars.getConfig().getDouble("arenas." + id + ".pink.x"),
-                blubwars.getConfig().getDouble("arenas." + id + ".pink.y"),
-                blubwars.getConfig().getDouble("arenas." + id + ".pink.z"),
-                (float) blubwars.getConfig().getDouble("arenas." + id + ".pink.yaw"),
-                (float) blubwars.getConfig().getDouble("arenas." + id + ".pink.pitch"));
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".dropper.x"),
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".dropper.y"),
+                blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".dropper.z"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".dropper.yaw"),
+                (float) blubwars.getConfig().getDouble("arenas." + id + "." + team.getTeamName() + ".dropper.pitch")
+        );
     }
 
     // Games
@@ -85,6 +90,7 @@ public class Arena {
             Location lobbyspawn = ConfigManager.getLobbySpawn();
             for (UUID uuid : players){
                 Bukkit.getPlayer(uuid).teleport(lobbyspawn);
+                Bukkit.getPlayer(uuid).setGameMode(GameMode.ADVENTURE);
                 Bukkit.getPlayer(uuid).getInventory().clear();
                 Bukkit.getPlayer(uuid).getEnderChest().clear();
             }
@@ -101,7 +107,9 @@ public class Arena {
                 game.getVillagerShop().remove(villagerUUID);
             }
             game.getVillagerShop().clear();
-            new ResetArena(this,blubwars);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"/world sandcastle");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"/schem load SandCastle.schem");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"/paste -o");
         }
         sendTitle("", "");
         state = GameState.RECRUITING;
@@ -130,6 +138,7 @@ public class Arena {
 
     public void addPlayer(Player player){
         players.add(player.getUniqueId());
+        player.setGameMode(GameMode.ADVENTURE);
 
         TreeMultimap<Integer, Team> count = TreeMultimap.create();
         for (Team team : Team.values()){
@@ -152,6 +161,7 @@ public class Arena {
 
     public void removePlayer(Player player){
         players.remove(player.getUniqueId());
+        player.setGameMode(GameMode.SURVIVAL);
         player.getInventory().clear();
         player.teleport(ConfigManager.getLobbySpawn());
         player.sendTitle("", "");
@@ -246,19 +256,4 @@ public class Arena {
     }
 
     public HashMap<UUID, Team> getTeams (){ return teams; }
-
-    public Location getTeamSpawn(Team team){
-        if (team.equals(Team.RED)){
-            return redspawn;
-        } else if (team.equals(Team.BLUE)){
-            return bluespawn;
-        } else if (team.equals(Team.GREEN)){
-            return greenspawn;
-        } else if (team.equals(Team.PINK)){
-            return pinkspawn;
-        } else {
-            return null;
-        }
-    }
-
 }

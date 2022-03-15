@@ -29,7 +29,7 @@ public class Dropper extends BukkitRunnable {
 
     public void start(){
         for (Team team : Team.values()){
-            teamDroppers.put(team,arena.getTeamSpawn(team));
+            teamDroppers.put(team,arena.getTeamDropper(team));
         }
         runTaskTimer(blubwars, 0,20);
     }

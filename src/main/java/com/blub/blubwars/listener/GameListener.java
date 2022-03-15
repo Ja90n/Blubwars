@@ -9,13 +9,16 @@ import com.blub.blubwars.runnable.CatRespawn;
 import com.blub.blubwars.runnable.PlayerRespawn;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Cat;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -24,6 +27,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -99,5 +103,22 @@ public class GameListener implements Listener {
     public void onHunger(FoodLevelChangeEvent e){
         e.setFoodLevel(20);
         e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onRightClick(PlayerInteractEvent e){
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+            Player player = e.getPlayer();
+                for (Arena arena : blubwars.getArenaManager().getArenas()){
+                    if (e.getClickedBlock().getLocation().equals(new Location(
+                            Bukkit.getWorld(blubwars.getConfig().getString("arenas." + arena.getId() + ".sign.world")),
+                            blubwars.getConfig().getDouble("arenas." + arena.getId() + ".sign.x"),
+                            blubwars.getConfig().getDouble("arenas." + arena.getId() + ".sign.y"),
+                            blubwars.getConfig().getDouble("arenas." + arena.getId() + ".sign.z")
+                    ))){
+                        arena.addPlayer(player);
+                    }
+            }
+        }
     }
 }

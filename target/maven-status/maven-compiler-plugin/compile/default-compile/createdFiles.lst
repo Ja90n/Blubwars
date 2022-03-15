@@ -1,6 +1,7 @@
 com\blub\blubwars\listener\ItemListeners.class
 com\blub\blubwars\enums\GameState.class
 com\blub\blubwars\instance\Cuboid$1.class
+com\blub\blubwars\utils\SetPlayerStartInventory.class
 com\blub\blubwars\command\MainTabCompleter.class
 com\blub\blubwars\listener\GuiListeners.class
 com\blub\blubwars\gui\ShopGui.class
@@ -12,6 +13,7 @@ com\blub\blubwars\command\MainCommand.class
 com\blub\blubwars\command\commands\AdminCommand.class
 com\blub\blubwars\command\commands\JoinGameEvent.class
 com\blub\blubwars\command\commands\admincommands\AdminStopCommand.class
+com\blub\blubwars\utils\SetPlayerStartInventory$1.class
 com\blub\blubwars\instance\Cuboid$CuboidIterator.class
 com\blub\blubwars\manager\ConfigManager.class
 com\blub\blubwars\listener\ConnectListener.class

@@ -11,6 +11,11 @@ lobby-spawn:
 arenas:
   0:
     name: 'SandCastle'
+    sign:
+      world: 'world'
+      x: 0.5
+      y: 125
+      z: 0.5
     lobby:
       world: 'SandCastle'
       x: 0.5
@@ -19,29 +24,105 @@ arenas:
       yaw: 0
       pitch: 0
     red:
-      x: 3
-      y: 126
-      z: 0.5
-      yaw: 150
-      pitch: 11
+      team-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      villager-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      dropper:
+        x: 3
+        y: 126
+        z: 0.5
+      pos1:
+        x: 3
+        y: 126
+        z: 0.5
+      pos2:
+        x: 3
+        y: 126
+        z: 0.5
     blue:
-      x: 0.5
-      y: 126
-      z: 3.5
-      yaw: 150
-      pitch: 11
+      team-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      villager-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      dropper:
+        x: 3
+        y: 126
+        z: 0.5
+      pos1:
+        x: 3
+        y: 126
+        z: 0.5
+      pos2:
+        x: 3
+        y: 126
+        z: 0.5
     green:
-      x: -2.5
-      y: 126
-      z: 0.5
-      yaw: 150
-      pitch: 11
+      team-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      villager-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      dropper:
+        x: 3
+        y: 126
+        z: 0.5
+      pos1:
+        x: 3
+        y: 126
+        z: 0.5
+      pos2:
+        x: 3
+        y: 126
+        z: 0.5
     pink:
-      x: 0.5
-      y: 126
-      z: -2.5
-      yaw: 150
-      pitch: 11
+      team-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      villager-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      dropper:
+        x: 3
+        y: 126
+        z: 0.5
+      pos1:
+        x: 3
+        y: 126
+        z: 0.5
+      pos2:
+        x: 3
+        y: 126
+        z: 0.5
     pos1:
       x: 0.5
       y: 126
@@ -52,37 +133,118 @@ arenas:
       z: -2.5
   1:
     name: 'Glacier'
-    lobby:
+    sign:
       world: 'world'
+      x: 0.5
+      y: 125
+      z: 0.5
+    lobby:
+      world: 'Glacier'
       x: 4.5
       y: -60
       z: 15.5
       yaw: -150
       pitch: 11
     red:
-      x: 12.5
-      y: -60
-      z: 15.5
-      yaw: 150
-      pitch: 11
+      team-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      villager-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      dropper:
+        x: 3
+        y: 126
+        z: 0.5
+      pos1:
+        x: 3
+        y: 126
+        z: 0.5
+      pos2:
+        x: 3
+        y: 126
+        z: 0.5
     blue:
-      x: 12.5
-      y: -60
-      z: 15.5
-      yaw: 150
-      pitch: 11
+      team-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      villager-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      dropper:
+        x: 3
+        y: 126
+        z: 0.5
+      pos1:
+        x: 3
+        y: 126
+        z: 0.5
+      pos2:
+        x: 3
+        y: 126
+        z: 0.5
     green:
-      x: 12.5
-      y: -60
-      z: 15.5
-      yaw: 150
-      pitch: 11
+      team-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      villager-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      dropper:
+        x: 3
+        y: 126
+        z: 0.5
+      pos1:
+        x: 3
+        y: 126
+        z: 0.5
+      pos2:
+        x: 3
+        y: 126
+        z: 0.5
     pink:
-      x: 12.5
-      y: -60
-      z: 15.5
-      yaw: 150
-      pitch: 11
+      team-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      villager-spawn:
+        x: 3
+        y: 126
+        z: 0.5
+        yaw: 150
+        pitch: 11
+      dropper:
+        x: 3
+        y: 126
+        z: 0.5
+      pos1:
+        x: 3
+        y: 126
+        z: 0.5
+      pos2:
+        x: 3
+        y: 126
+        z: 0.5
     pos1:
       x: 0.5
       y: 126

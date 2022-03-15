@@ -6,6 +6,7 @@ import com.blub.blubwars.utils.GivePlayerItem;
 import com.blub.blubwars.instance.Arena;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -59,13 +60,19 @@ public class GuiListeners implements Listener {
                                 new ItemStack(Material.STONE_SWORD),1,1);
                         break;
                     case 12:
-
                         ItemStack fireball = new ItemStack(Material.FIRE_CHARGE);
                         ItemMeta fireballMeta = fireball.getItemMeta();
                         fireballMeta.setDisplayName(ChatColor.GOLD + "Fireball");
                         fireball.setItemMeta(fireballMeta);
-
                         new GivePlayerItem(player,new ItemStack(Material.SALMON),fireball, 5,1);
+                        break;
+                    case 13:
+                        ItemStack shears = new ItemStack(Material.SHEARS);
+                        ItemMeta shearsMeta = shears.getItemMeta();
+                        shearsMeta.setDisplayName(ChatColor.GRAY + "Shears");
+                        shears.addEnchantment(Enchantment.DIG_SPEED, 5);
+                        shears.setItemMeta(shearsMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.COD),shears,5,1);
                         break;
                 }
             }

@@ -2,8 +2,11 @@ package com.blub.blubwars.runnable;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.instance.Arena;
+import com.blub.blubwars.utils.SetPlayerStartInventory;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerRespawn extends BukkitRunnable {
@@ -35,6 +38,7 @@ public class PlayerRespawn extends BukkitRunnable {
         if (timeRun == 5){
             player.setInvisible(false);
             player.sendTitle("","");
+            new SetPlayerStartInventory(player,blubwars);
             player.teleport(arena.getTeamSpawn(arena.getTeam(player)));
             cancel();
         }
