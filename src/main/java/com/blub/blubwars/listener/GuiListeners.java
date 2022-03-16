@@ -50,8 +50,43 @@ public class GuiListeners implements Listener {
                 player.closeInventory();
             } else if (e.getView().getTitle().contains("Shop")){
                 e.setCancelled(true);
-                switch (e.getSlot()){
-                    case 10:
+                switch (e.getCurrentItem().getType()){
+                    case STONE_SWORD:
+                        new GivePlayerItem(player,new ItemStack(Material.SALMON),
+                                new ItemStack(Material.STONE_SWORD),1,1).giveItem();
+                        break;
+                    case FIRE_CHARGE:
+                        ItemStack fireball = new ItemStack(Material.FIRE_CHARGE);
+                        ItemMeta fireballMeta = fireball.getItemMeta();
+                        fireballMeta.setDisplayName(ChatColor.GOLD + "Fireball");
+                        fireball.setItemMeta(fireballMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.SALMON),fireball, 5,1).giveItem();
+                        break;
+                    case SHEARS:
+                        ItemStack shears = new ItemStack(Material.SHEARS);
+                        ItemMeta shearsMeta = shears.getItemMeta();
+                        shearsMeta.setDisplayName(ChatColor.GRAY + "Shears");
+                        shearsMeta.addEnchant(Enchantment.DIG_SPEED, 5,true);
+                        shears.setItemMeta(shearsMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.COD),shears,5,1).giveItem();
+                        break;
+                    case FEATHER:
+                        ItemStack feather = new ItemStack(Material.FEATHER);
+                        ItemMeta featherMeta = feather.getItemMeta();
+                        featherMeta.setDisplayName(ChatColor.GRAY + "Parachute");
+                        feather.setItemMeta(featherMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.COD),feather,10,1).giveItem();
+                        break;
+                    case IRON_LEGGINGS:
+                        player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+                        player.getInventory().setLeggings(new ItemStack(Material.IRON_BOOTS));
+                }
+            }
+        }
+    }
+
+    /*
+    case 10:
                         ItemStack wool = new ItemStack(blubwars.getArenaManager().
                                 getArena(player).getTeam(player).getMaterial());
                         new GivePlayerItem(player,new ItemStack(Material.COD),wool,1,4);
@@ -82,8 +117,5 @@ public class GuiListeners implements Listener {
                         feather.setItemMeta(featherMeta);
                         new GivePlayerItem(player,new ItemStack(Material.COD),feather,10,1);
                         break;
-                }
-            }
-        }
-    }
+     */
 }

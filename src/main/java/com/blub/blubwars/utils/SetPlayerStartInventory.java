@@ -17,6 +17,7 @@ public class SetPlayerStartInventory {
         ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
         ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS);
         ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
         Color color = Color.WHITE;
         switch (blubwars.getArenaManager().getArena(player).getTeam(player)){
             case RED:
@@ -36,8 +37,10 @@ public class SetPlayerStartInventory {
         boots.setItemMeta(leatherArmorMeta);
         leggings.setItemMeta(leatherArmorMeta);
         chestplate.setItemMeta(leatherArmorMeta);
+        helmet.setItemMeta(leatherArmorMeta);
         player.getInventory().setBoots(boots);
         player.getInventory().setLeggings(leggings);
         player.getInventory().setChestplate(chestplate);
+        player.getInventory().setHelmet(helmet);
     }
 }

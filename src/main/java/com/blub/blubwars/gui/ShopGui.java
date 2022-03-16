@@ -16,9 +16,11 @@ import java.util.List;
 
 public class ShopGui {
 
+    private Inventory shopgui;
+
     public ShopGui(Player player, Blubwars blubwars, Arena arena){
 
-        Inventory shopgui = Bukkit.createInventory(null,45, ChatColor.LIGHT_PURPLE + "Shop");
+        this.shopgui = Bukkit.createInventory(null,45, ChatColor.LIGHT_PURPLE + "Shop");
 
         ItemStack frame = new ItemStack(Material.PINK_STAINED_GLASS_PANE);
         ItemMeta framemeta = frame.getItemMeta();
@@ -30,55 +32,42 @@ public class ShopGui {
 
         // Wool
         ItemStack wool = new ItemStack(arena.getTeam(player).getMaterial());
-        ItemMeta woolMeta = wool.getItemMeta();
-        woolMeta.setDisplayName(arena.getTeam(player).getDisplay() + " wool");
-        List loreWool = new ArrayList<>();
-        loreWool.add(ChatColor.GRAY + "Cost: 1 Cod");
-        woolMeta.setLore(loreWool);
-        wool.setItemMeta(woolMeta);
-        wool.setAmount(4);
-        shopgui.setItem(10,wool);
+        createItem(wool,null,ChatColor.GRAY + "Cost: 1 Cod",10,null,0);
 
         // Stone sword
-        List loreStoneSword = new ArrayList<>();
-        loreStoneSword.add(ChatColor.GRAY + "Cost: 1 " + ChatColor.GOLD + "Salmon");
-        ItemStack stoneSword = new ItemStack(Material.STONE_SWORD);
-        ItemMeta stoneSwordMeta = stoneSword.getItemMeta();
-        stoneSwordMeta.setLore(loreStoneSword);
-        stoneSword.setItemMeta(stoneSwordMeta);
-        shopgui.setItem(11,stoneSword);
+        createItem(new ItemStack(Material.STONE_SWORD),ChatColor.GRAY + "Stone sword",
+                ChatColor.GRAY + "Cost: 1 " + ChatColor.GOLD + "Salmon",11,null,0);
 
         // Fireball
-        List loreFireball = new ArrayList<>();
-        loreFireball.add(ChatColor.GRAY + "Cost: 5 " + ChatColor.GOLD + "Salmon");
-        ItemStack fireball = new ItemStack(Material.FIRE_CHARGE);
-        ItemMeta fireballMeta = fireball.getItemMeta();
-        fireballMeta.setLore(loreFireball);
-        fireballMeta.setDisplayName(ChatColor.GOLD + "Fireball");
-        fireball.setItemMeta(fireballMeta);
-        shopgui.setItem(12,fireball);
+        createItem(new ItemStack(Material.FIRE_CHARGE),ChatColor.GOLD + "Fireball",
+                ChatColor.GRAY + "Cost: 5 " + ChatColor.GOLD + "Salmon",12,null,0);
 
         // Shears
-        List shearsLore = new ArrayList<>();
-        shearsLore.add(ChatColor.GRAY + "Cost: 5 " + ChatColor.GRAY + "Cod");
-        ItemStack shears = new ItemStack(Material.SHEARS);
-        ItemMeta shearsMeta = shears.getItemMeta();
-        shearsMeta.setLore(shearsLore);
-        shearsMeta.setDisplayName(ChatColor.GRAY + "Shears");
-        shearsMeta.addEnchant(Enchantment.DIG_SPEED, 5,true);
-        shears.setItemMeta(shearsMeta);
-        shopgui.setItem(13,shears);
+        createItem(new ItemStack(Material.SHEARS),ChatColor.GRAY + "Shears",
+                ChatColor.GRAY + "Cost: 5 " + "Cod", 13,Enchantment.DIG_SPEED,5);
 
-        // Feather
-        List featherLore = new ArrayList<>();
-        featherLore.add(ChatColor.GRAY + "Cost: 10 " + ChatColor.GRAY + "Cod");
-        ItemStack feather = new ItemStack(Material.FEATHER);
-        ItemMeta featherMeta = feather.getItemMeta();
-        featherMeta.setLore(featherLore);
-        featherMeta.setDisplayName(ChatColor.GRAY + "Parachute");
-        feather.setItemMeta(featherMeta);
-        shopgui.setItem(14,feather);
+        // Parachute
+        createItem(new ItemStack(Material.FEATHER),ChatColor.GRAY + "Parachute",
+                ChatColor.GRAY + "Cost: 10 " + "Cod", 14, null,0);
 
         player.openInventory(shopgui);
+    }
+
+    private void createItem(ItemStack itemStack, String displayName, String lore, int index,
+                            Enchantment enchantment,int level){
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (displayName != null){
+            itemMeta.setDisplayName(displayName);
+        }
+        if (lore != null){
+            List<String> loreList = new ArrayList<>();
+            loreList.add(lore);
+            itemMeta.setLore(loreList);
+        }
+        if (enchantment != null){
+            itemMeta.addEnchant(enchantment,level,true);
+        }
+        itemStack.setItemMeta(itemMeta);
+        shopgui.setItem(index, itemStack);
     }
 }
