@@ -14,10 +14,11 @@ import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
+
+import static org.bukkit.Bukkit.addRecipe;
+import static org.bukkit.Bukkit.getServer;
 
 public class Arena {
 
@@ -90,9 +91,7 @@ public class Arena {
 
     // Games
 
-    public void start(){
-        game.start();
-    }
+    public void start(){game.start();}
 
     public void reset(){
         if (state.equals(GameState.LIVE)){

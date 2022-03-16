@@ -54,16 +54,73 @@ public class GuiListeners implements Listener {
             } else if (e.getView().getTitle().contains("Shop")){
                 e.setCancelled(true);
                 switch (e.getCurrentItem().getType()){
-                    case STONE_SWORD:
-                        new GivePlayerItem(player,new ItemStack(Material.SALMON),
-                                1).giveItem(new ItemStack(Material.STONE_SWORD),1);
+                    case RED_WOOL:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),1)
+                                .giveItem(new ItemStack(Material.RED_WOOL),4);
                         break;
-                    case FIRE_CHARGE:
-                        ItemStack fireball = new ItemStack(Material.FIRE_CHARGE);
-                        ItemMeta fireballMeta = fireball.getItemMeta();
-                        fireballMeta.setDisplayName(ChatColor.GOLD + "Fireball");
-                        fireball.setItemMeta(fireballMeta);
-                        new GivePlayerItem(player,new ItemStack(Material.SALMON), 5).giveItem(fireball,1);
+                    case BLUE_WOOL:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),1)
+                                .giveItem(new ItemStack(Material.BLUE_WOOL),4);
+                        break;
+                    case GREEN_WOOL:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),1)
+                                .giveItem(new ItemStack(Material.GREEN_WOOL),4);
+                        break;
+                    case PINK_WOOL:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),1)
+                                .giveItem(new ItemStack(Material.PINK_WOOL),4);
+                        break;
+                    case RED_CONCRETE:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),1)
+                                .giveItem(new ItemStack(Material.RED_CONCRETE),2);
+                        break;
+                    case BLUE_CONCRETE:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),1)
+                                .giveItem(new ItemStack(Material.BLUE_CONCRETE),2);
+                        break;
+                    case GREEN_CONCRETE:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),1)
+                                .giveItem(new ItemStack(Material.GREEN_CONCRETE),2);
+                        break;
+                    case PINK_CONCRETE:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),1)
+                                .giveItem(new ItemStack(Material.PINK_CONCRETE),2);
+                        break;
+                    case RED_STAINED_GLASS:
+                        new GivePlayerItem(player,new ItemStack(Material.SALMON),2)
+                                .giveItem(new ItemStack(Material.RED_STAINED_GLASS),1);
+                        break;
+                    case BLUE_STAINED_GLASS:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),2)
+                                .giveItem(new ItemStack(Material.BLUE_STAINED_GLASS),1);
+                        break;
+                    case GREEN_STAINED_GLASS:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),2)
+                                .giveItem(new ItemStack(Material.GREEN_STAINED_GLASS),1);
+                        break;
+                    case PINK_STAINED_GLASS:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),2)
+                                .giveItem(new ItemStack(Material.PINK_STAINED_GLASS),1);
+                        break;
+                    case STONE_SWORD:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),
+                                10).giveItem(new ItemStack(Material.STONE_SWORD),1);
+                        break;
+                    case IRON_SWORD:
+                        new GivePlayerItem(player,new ItemStack(Material.SALMON),
+                                5).giveItem(new ItemStack(Material.IRON_SWORD),1);
+                        break;
+                    case DIAMOND_SWORD:
+                        new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),
+                                3).giveItem(new ItemStack(Material.DIAMOND_SWORD),1);
+                    case CHAINMAIL_LEGGINGS:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),40).giveArmor("chain");
+                        break;
+                    case IRON_LEGGINGS:
+                        new GivePlayerItem(player,new ItemStack(Material.SALMON),10).giveArmor("iron");
+                        break;
+                    case DIAMOND_LEGGINGS:
+                        new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),5).giveArmor("diamond");
                         break;
                     case SHEARS:
                         ItemStack shears = new ItemStack(Material.SHEARS);
@@ -73,21 +130,22 @@ public class GuiListeners implements Listener {
                         shears.setItemMeta(shearsMeta);
                         new GivePlayerItem(player,new ItemStack(Material.COD),5).giveItem(shears,1);
                         break;
+                    case STONE_PICKAXE:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),10)
+                                .giveItem(new ItemStack(Material.STONE_PICKAXE),1);
+                    case FIRE_CHARGE:
+                        ItemStack fireball = new ItemStack(Material.FIRE_CHARGE);
+                        ItemMeta fireballMeta = fireball.getItemMeta();
+                        fireballMeta.setDisplayName(ChatColor.GOLD + "Fireball");
+                        fireball.setItemMeta(fireballMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.SALMON), 5).giveItem(fireball,1);
+                        break;
                     case FEATHER:
                         ItemStack feather = new ItemStack(Material.FEATHER);
                         ItemMeta featherMeta = feather.getItemMeta();
                         featherMeta.setDisplayName(ChatColor.GRAY + "Parachute");
                         feather.setItemMeta(featherMeta);
                         new GivePlayerItem(player,new ItemStack(Material.COD),10).giveItem(feather,1);
-                        break;
-                    case CHAINMAIL_LEGGINGS:
-                        new GivePlayerItem(player,new ItemStack(Material.COD),40).giveArmor("chain");
-                        break;
-                    case IRON_LEGGINGS:
-                        new GivePlayerItem(player,new ItemStack(Material.SALMON),20).giveArmor("iron");
-                        break;
-                    case DIAMOND_LEGGINGS:
-                        new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),4).giveArmor("diamond");
                         break;
                     case SNOWBALL:
                         ItemStack snowball = new ItemStack(Material.SNOWBALL);
@@ -99,7 +157,7 @@ public class GuiListeners implements Listener {
                     case SPLASH_POTION:
                         ItemStack potion = new ItemStack(Material.SPLASH_POTION);
                         PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
-                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL,1,50),true);
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL,1,5),true);
                         potion.setItemMeta(potionMeta);
                         new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),1).giveItem(potion,1);
                         break;

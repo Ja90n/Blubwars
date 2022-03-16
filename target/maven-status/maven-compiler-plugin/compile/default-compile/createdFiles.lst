@@ -7,12 +7,14 @@ com\blub\blubwars\listener\GuiListeners.class
 com\blub\blubwars\gui\ShopGui.class
 com\blub\blubwars\instance\Game$1.class
 com\blub\blubwars\command\commands\admincommands\AdminListAllAreansCommand.class
+com\blub\blubwars\utils\SuckerRunnable.class
 com\blub\blubwars\runnable\CatRespawn$1.class
 com\blub\blubwars\runnable\Countdown.class
 com\blub\blubwars\utils\NoPlacingCuboids.class
 com\blub\blubwars\command\MainCommand.class
 com\blub\blubwars\command\commands\AdminCommand.class
 com\blub\blubwars\command\commands\JoinGameEvent.class
+com\blub\blubwars\gui\ShopGui$1.class
 com\blub\blubwars\command\commands\admincommands\AdminStopCommand.class
 com\blub\blubwars\utils\SetPlayerStartInventory$1.class
 com\blub\blubwars\instance\Cuboid$CuboidIterator.class
@@ -34,5 +36,6 @@ com\blub\blubwars\runnable\PlayerRespawn.class
 com\blub\blubwars\utils\GivePlayerItem.class
 com\blub\blubwars\utils\ResetArena.class
 com\blub\blubwars\listener\GameListener.class
+com\blub\blubwars\listener\GuiListeners$1.class
 com\blub\blubwars\command\commands\LeaveGameCommand.class
 com\blub\blubwars\runnable\Dropper.class

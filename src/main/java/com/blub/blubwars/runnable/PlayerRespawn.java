@@ -32,15 +32,18 @@ public class PlayerRespawn extends BukkitRunnable {
         if (timeRun == 0){
             player.spigot().respawn();
             player.setInvisible(true);
+            player.setInvulnerable(true);
         }
         int countDown = 5 - timeRun;
         player.sendTitle(ChatColor.GRAY + "You are respawning in ", ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + countDown + " seconds");
         if (timeRun == 5){
             player.setInvisible(false);
-            player.setInvulnerable(true);
+            player.setInvulnerable(false);
             player.sendTitle("","");
-            new SetPlayerStartInventory(player,blubwars);
-            player.teleport(arena.getTeamSpawn(arena.getTeam(player)));
+            try {
+                new SetPlayerStartInventory(player,blubwars);
+                player.teleport(arena.getTeamSpawn(arena.getTeam(player)));
+            } catch (NullPointerException e){cancel();}
             cancel();
         }
         timeRun++;

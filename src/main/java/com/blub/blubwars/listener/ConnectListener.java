@@ -29,6 +29,8 @@ public class ConnectListener implements Listener {
         if (arena != null){
             arena.removePlayer(e.getPlayer());
         }
+        e.getPlayer().setInvulnerable(false);
+        e.getPlayer().setInvisible(false);
         e.setQuitMessage(e.getPlayer().getDisplayName() + ChatColor.LIGHT_PURPLE + " has left the server!");
     }
 }

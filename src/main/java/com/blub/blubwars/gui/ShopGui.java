@@ -38,7 +38,7 @@ public class ShopGui {
 
         // Wool
         ItemStack wool = new ItemStack(arena.getTeam(player).getMaterial());
-        createItem(wool,null,ChatColor.GRAY + "Cost: 1 Cod",10,4,null,0);
+        createItem(wool,null,ChatColor.GRAY + "Cost: 1 cod",10,4,null,0);
 
         // Concrete
         Material concreteMaterial = Material.WHITE_CONCRETE;
@@ -56,7 +56,7 @@ public class ShopGui {
                 concreteMaterial = Material.PINK_CONCRETE;
         }
         ItemStack concrete = new ItemStack(concreteMaterial);
-        createItem(concrete,null,ChatColor.GRAY + "Cost: 2 Cod",19,4,null,0);
+        createItem(concrete,null,ChatColor.GRAY + "Cost: 1 cod",19,2,null,0);
 
         // Glass
         Material glassMaterial = Material.GLASS;
@@ -74,7 +74,7 @@ public class ShopGui {
                 glassMaterial = Material.PINK_STAINED_GLASS;
         }
         ItemStack glass = new ItemStack(glassMaterial);
-        createItem(glass,null,ChatColor.GRAY + "Cost: 2 " + ChatColor.GOLD + "Salmon",28,4,null,0);
+        createItem(glass,null,ChatColor.GRAY + "Cost: 1 " + ChatColor.GOLD + "salmon",28,1,null,0);
 
         // Weapons
 
@@ -83,11 +83,11 @@ public class ShopGui {
                 ChatColor.GRAY + "Cost: 10 cod",11,1,null,0);
 
         // Iron sword
-        createItem(new ItemStack(Material.IRON_SWORD),ChatColor.GRAY + "Iron sword",
+        createItem(new ItemStack(Material.IRON_SWORD),ChatColor.GOLD + "Iron sword",
                 ChatColor.GRAY + "Cost: 5 " + ChatColor.GOLD + "salmon",20,1,null,0);
 
         // Diamond sword
-        createItem(new ItemStack(Material.DIAMOND_SWORD),ChatColor.GRAY + "Diamond sword",
+        createItem(new ItemStack(Material.DIAMOND_SWORD),ChatColor.BLUE + "Diamond sword",
                 ChatColor.GRAY + "Cost: 3 " + ChatColor.BLUE + "tropical fish",29,1,null,0);
 
         // Armor
@@ -97,7 +97,7 @@ public class ShopGui {
                 ChatColor.GRAY + "Cost: 40 cod", 12,1,null,0);
 
         // Iron
-        createItem(new ItemStack(Material.IRON_LEGGINGS),ChatColor.GRAY + "Iron armor",
+        createItem(new ItemStack(Material.IRON_LEGGINGS),ChatColor.GOLD + "Iron armor",
                 ChatColor.GRAY + "Cost: 10 " + ChatColor.GOLD + "salmon", 21,1,null,0);
 
         // Diamond
@@ -108,17 +108,17 @@ public class ShopGui {
 
         // Shears
         createItem(new ItemStack(Material.SHEARS),ChatColor.GRAY + "Shears",
-                ChatColor.GRAY + "Cost: 5 " + "Cod", 13,1,Enchantment.DIG_SPEED,5);
+                ChatColor.GRAY + "Cost: 5 " + "cod", 13,1,Enchantment.DIG_SPEED,5);
 
         // Pickaxe
         createItem(new ItemStack(Material.STONE_PICKAXE),ChatColor.GRAY + "Stone Pickaxe",
-                ChatColor.GRAY + "Cost: 10 " + "Cod", 22,1,null,0);
+                ChatColor.GRAY + "Cost: 10 " + "cod", 22,1,null,0);
 
         //Misc
 
         // Fireball
         createItem(new ItemStack(Material.FIRE_CHARGE),ChatColor.GOLD + "Fireball",
-                ChatColor.GRAY + "Cost: 5 " + ChatColor.GOLD + "Salmon",15,1,null,0);
+                ChatColor.GRAY + "Cost: 5 " + ChatColor.GOLD + "salmon",15,1,null,0);
 
         // Parachute
         createItem(new ItemStack(Material.FEATHER),ChatColor.GRAY + "Parachute",
@@ -139,7 +139,7 @@ public class ShopGui {
         // Health pot
         ItemStack potion = new ItemStack(Material.SPLASH_POTION);
         PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
-        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL,1,50),true);
+        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL,1,5),true);
         potion.setItemMeta(potionMeta);
         createItem(potion,ChatColor.BLUE +"Heath potion", ChatColor.GRAY +
                 "Cost: 1 " + ChatColor.BLUE + "tropical fish",34,1,null,0);

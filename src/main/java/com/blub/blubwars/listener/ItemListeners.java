@@ -2,6 +2,7 @@ package com.blub.blubwars.listener;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.instance.Arena;
+import com.blub.blubwars.utils.SuckerRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -50,20 +51,7 @@ public class ItemListeners implements Listener {
     @EventHandler
     public void onProjectalHit(ProjectileHitEvent e){
         if (e.getEntity().getType().equals(EntityType.SNOWBALL)){
-            for (Entity entity : e.getEntity().getNearbyEntities(10 ,10,10)){
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        Vector vector = e.getEntity().getLocation().toVector().setY(2).subtract(entity.getLocation().
-                                toVector().multiply(5-timeRun));
-                        entity.setVelocity(vector);
-                        if (timeRun == 5){
-                            cancel();
-                        }
-                        timeRun++;
-                    }
-                }.runTaskTimer(blubwars, 0, 20);
-            }
+            new SuckerRunnable(e.getEntity().getLocation(),e.getEntity().getNearbyEntities(15,15,15),blubwars).start();
         }
     }
 

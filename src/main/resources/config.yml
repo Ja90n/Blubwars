@@ -10,14 +10,14 @@ lobby-spawn:
   pitch: 0
 arenas:
   0:
-    name: 'SandCastle'
+    name: 'sandcastle'
     sign:
       world: 'world'
       x: 0.5
       y: 125
       z: 0.5
     lobby:
-      world: 'SandCastle'
+      world: 'sandcastle'
       x: 0.5
       y: 125
       z: 0.5
