@@ -53,14 +53,14 @@ public class GuiListeners implements Listener {
                 switch (e.getCurrentItem().getType()){
                     case STONE_SWORD:
                         new GivePlayerItem(player,new ItemStack(Material.SALMON),
-                                new ItemStack(Material.STONE_SWORD),1,1).giveItem();
+                                1).giveItem(new ItemStack(Material.STONE_SWORD),1);
                         break;
                     case FIRE_CHARGE:
                         ItemStack fireball = new ItemStack(Material.FIRE_CHARGE);
                         ItemMeta fireballMeta = fireball.getItemMeta();
                         fireballMeta.setDisplayName(ChatColor.GOLD + "Fireball");
                         fireball.setItemMeta(fireballMeta);
-                        new GivePlayerItem(player,new ItemStack(Material.SALMON),fireball, 5,1).giveItem();
+                        new GivePlayerItem(player,new ItemStack(Material.SALMON), 5).giveItem(fireball,1);
                         break;
                     case SHEARS:
                         ItemStack shears = new ItemStack(Material.SHEARS);
@@ -68,18 +68,19 @@ public class GuiListeners implements Listener {
                         shearsMeta.setDisplayName(ChatColor.GRAY + "Shears");
                         shearsMeta.addEnchant(Enchantment.DIG_SPEED, 5,true);
                         shears.setItemMeta(shearsMeta);
-                        new GivePlayerItem(player,new ItemStack(Material.COD),shears,5,1).giveItem();
+                        new GivePlayerItem(player,new ItemStack(Material.COD),5).giveItem(shears,1);
                         break;
                     case FEATHER:
                         ItemStack feather = new ItemStack(Material.FEATHER);
                         ItemMeta featherMeta = feather.getItemMeta();
                         featherMeta.setDisplayName(ChatColor.GRAY + "Parachute");
                         feather.setItemMeta(featherMeta);
-                        new GivePlayerItem(player,new ItemStack(Material.COD),feather,10,1).giveItem();
+                        new GivePlayerItem(player,new ItemStack(Material.COD),10).giveItem(feather,1);
                         break;
                     case IRON_LEGGINGS:
-                        player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
-                        player.getInventory().setLeggings(new ItemStack(Material.IRON_BOOTS));
+                        new GivePlayerItem(player,new ItemStack(Material.COD),10).giveArmor("iron");
+                    case DIAMOND_LEGGINGS:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),10).giveArmor("diamond");
                 }
             }
         }
