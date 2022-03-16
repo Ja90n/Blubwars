@@ -17,6 +17,7 @@ public class Dropper extends BukkitRunnable {
     private Blubwars blubwars;
     private Arena arena;
     private HashMap<Team,Location> teamDroppers;
+    private HashMap<Integer,Location> midDroppers;
 
     int timeRun;
 
@@ -24,12 +25,20 @@ public class Dropper extends BukkitRunnable {
         this.blubwars = blubwars;
         this.arena = arena;
         this.teamDroppers = new HashMap<>();
+        this.midDroppers = new HashMap<>();
         this.timeRun = 0;
     }
 
     public void start(){
         for (Team team : Team.values()){
             teamDroppers.put(team,arena.getTeamDropper(team));
+        }
+        for (int i = 0; i < 100; i++ ){
+            if (arena.getMidDropper(i) == null){
+                break;
+            } else {
+                midDroppers.put(i,arena.getMidDropper(i));
+            }
         }
         runTaskTimer(blubwars, 0,20);
     }
@@ -46,6 +55,11 @@ public class Dropper extends BukkitRunnable {
         salmonMeta.setDisplayName(ChatColor.GOLD + "Salmon");
         salmon.setItemMeta(salmonMeta);
 
+        ItemStack tropicalFish = new ItemStack(Material.TROPICAL_FISH);
+        ItemMeta tropicalFishMeta = tropicalFish.getItemMeta();
+        tropicalFishMeta.setDisplayName(ChatColor.BLUE + "Tropical Fish");
+        tropicalFish.setItemMeta(tropicalFishMeta);
+
         if (timeRun % 4 == 0){
             for (Location location : teamDroppers.values()){
                 arena.getWorld().dropItem(location,cod);
@@ -54,6 +68,11 @@ public class Dropper extends BukkitRunnable {
         if (timeRun % 10 == 0){
             for (Location location : teamDroppers.values()){
                 arena.getWorld().dropItem(location,salmon);
+            }
+        }
+        if (timeRun % 30 == 0){
+            for (Location location : midDroppers.values()){
+                arena.getWorld().dropItem(location,tropicalFish);
             }
         }
         timeRun++;

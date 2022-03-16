@@ -8,16 +8,13 @@ import org.bukkit.inventory.ItemStack;
 public class GivePlayerItem {
 
     private Player player;
-    private ItemStack cost,get;
-    private int costAmount,getAmount;
+    private ItemStack cost;
+    private int costAmount;
 
     public GivePlayerItem(Player player, ItemStack cost, int costAmount){
         this.player = player;
         this.cost = cost;
-        this.get = get;
         this.costAmount = costAmount;
-        this.getAmount = getAmount;
-
     }
 
     public void giveItem(ItemStack get, int getAmount){
@@ -41,13 +38,17 @@ public class GivePlayerItem {
     public void giveArmor(String type){
         if (player.getInventory().contains(cost.getType(),costAmount)) {
             switch (type){
+                case "chain":
+                    player.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
+                    player.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
+                    break;
                 case "iron":
                     player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
-                    player.getInventory().setLeggings(new ItemStack(Material.IRON_BOOTS));
+                    player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
                     break;
                 case "diamond":
                     player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
-                    player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_BOOTS));
+                    player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
                     break;
             }
             for (int i = 0; i < player.getInventory().getSize(); i++){

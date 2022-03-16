@@ -2,6 +2,7 @@ package com.blub.blubwars.listener;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.instance.Arena;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -9,15 +10,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
 public class ItemListeners implements Listener {
 
     private Blubwars blubwars;
+    int timeRun = 0;
 
     public ItemListeners(Blubwars blubwars) {
         this.blubwars = blubwars;
@@ -37,6 +43,26 @@ public class ItemListeners implements Listener {
                 chicken.addPassenger(player);
                 chicken.setCustomName("Parachute");
                 player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onProjectalHit(ProjectileHitEvent e){
+        if (e.getEntity().getType().equals(EntityType.SNOWBALL)){
+            for (Entity entity : e.getEntity().getNearbyEntities(10 ,10,10)){
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        Vector vector = e.getEntity().getLocation().toVector().setY(2).subtract(entity.getLocation().
+                                toVector().multiply(5-timeRun));
+                        entity.setVelocity(vector);
+                        if (timeRun == 5){
+                            cancel();
+                        }
+                        timeRun++;
+                    }
+                }.runTaskTimer(blubwars, 0, 20);
             }
         }
     }

@@ -131,6 +131,16 @@ arenas:
       x: 0.5
       y: 126
       z: -2.5
+    droppers:
+      0:
+        x: 0.5
+        y: 126
+        z: -2.5
+      1:
+        x: 0.5
+        y: 126
+        z: -2.5
+
   1:
     name: 'Glacier'
     sign:

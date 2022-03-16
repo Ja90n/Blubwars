@@ -79,6 +79,15 @@ public class Arena {
         );
     }
 
+    public Location getMidDropper(int dropper){
+        return new Location(
+                getWorld(),
+                blubwars.getConfig().getDouble("arenas." + id + ".droppers." + dropper + ".x"),
+                blubwars.getConfig().getDouble("arenas." + id + ".droppers." + dropper + ".y"),
+                blubwars.getConfig().getDouble("arenas." + id + ".droppers." + dropper + ".z")
+        );
+    }
+
     // Games
 
     public void start(){

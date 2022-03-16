@@ -13,6 +13,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,10 +80,29 @@ public class GuiListeners implements Listener {
                         feather.setItemMeta(featherMeta);
                         new GivePlayerItem(player,new ItemStack(Material.COD),10).giveItem(feather,1);
                         break;
+                    case CHAINMAIL_LEGGINGS:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),40).giveArmor("chain");
+                        break;
                     case IRON_LEGGINGS:
-                        new GivePlayerItem(player,new ItemStack(Material.COD),10).giveArmor("iron");
+                        new GivePlayerItem(player,new ItemStack(Material.SALMON),20).giveArmor("iron");
+                        break;
                     case DIAMOND_LEGGINGS:
-                        new GivePlayerItem(player,new ItemStack(Material.COD),10).giveArmor("diamond");
+                        new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),4).giveArmor("diamond");
+                        break;
+                    case SNOWBALL:
+                        ItemStack snowball = new ItemStack(Material.SNOWBALL);
+                        ItemMeta snowballMeta = snowball.getItemMeta();
+                        snowballMeta.setDisplayName(ChatColor.BLUE + "Sucker");
+                        snowball.setItemMeta(snowballMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),5).giveItem(snowball,1);
+                        break;
+                    case SPLASH_POTION:
+                        ItemStack potion = new ItemStack(Material.SPLASH_POTION);
+                        PotionMeta potionMeta = (PotionMeta) potion.getItemMeta();
+                        potionMeta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL,1,50),true);
+                        potion.setItemMeta(potionMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),1).giveItem(potion,1);
+                        break;
                 }
             }
         }
