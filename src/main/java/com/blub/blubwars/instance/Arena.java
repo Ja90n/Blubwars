@@ -124,6 +124,7 @@ public class Arena {
             countdown = new Countdown(blubwars, this);
         } catch (IllegalStateException e){}
         game = new Game(this,blubwars);
+        new ResetArena(this);
     }
 
     // Tools

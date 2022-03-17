@@ -9,7 +9,6 @@ repositories {
     mavenCentral()
     maven { url = 'https://maven.enginehub.org/repo/' }
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url = 'https://oss.sonatype.org/content/repositories/central' }
 }
@@ -19,7 +18,6 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.9-SNAPSHOT'
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
-    implementation group: 'org.bstats', name: 'bstats-bukkit', version: '3.0.0'
 }
 
 test {

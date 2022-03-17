@@ -6,7 +6,7 @@ import com.blub.blubwars.command.MainTabCompleter;
 import com.blub.blubwars.instance.Arena;
 import com.blub.blubwars.manager.ArenaManager;
 import com.blub.blubwars.manager.ConfigManager;
-import org.bstats.bukkit.Metrics;
+import com.blub.blubwars.utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,9 +45,12 @@ public final class Blubwars extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for (Arena arena : getArenaManager().getArenas()){
-            arena.reset();
+        if (getArenaManager().getArenas() != null){
+            for (Arena arena : getArenaManager().getArenas()){
+                arena.reset();
+            }
         }
+
         // Disable message
         Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Disabled the " + ChatColor.BOLD.toString() +
                 ChatColor.LIGHT_PURPLE + "Blubwars" + ChatColor.RESET.toString() + ChatColor.RED + " plugin!");
