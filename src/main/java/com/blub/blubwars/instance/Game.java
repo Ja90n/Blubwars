@@ -63,6 +63,7 @@ public class Game {
         }
         dropper.start();
         arena.sendMessage(ChatColor.AQUA + "Game has started!");
+
     }
 
     public void spawnVillagerShop(Team team){

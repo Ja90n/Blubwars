@@ -6,6 +6,7 @@ import com.blub.blubwars.command.MainTabCompleter;
 import com.blub.blubwars.instance.Arena;
 import com.blub.blubwars.manager.ArenaManager;
 import com.blub.blubwars.manager.ConfigManager;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +17,10 @@ public final class Blubwars extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        int pluginId = 14655;
+        Metrics metrics = new Metrics(this, pluginId);
+
         // Setup config
         ConfigManager.setupConfig(this);
 
