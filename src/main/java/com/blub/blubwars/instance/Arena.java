@@ -82,6 +82,10 @@ public class Arena {
         );
     }
 
+    public Cuboid getArenaCuboid(){
+        return new Cuboid(ConfigManager.getPosition(this,1),ConfigManager.getPosition(this,2));
+    }
+
     // Games
 
     public void start(){game.start();}

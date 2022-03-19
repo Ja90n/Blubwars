@@ -34,24 +34,30 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e){
-        if (blubwars.getArenaManager().getArena(e.getPlayer()) != null) {
-            if (blubwars.getArenaManager().getArena(e.getPlayer()).getState().equals(GameState.LIVE)){
-                Player player = e.getPlayer();
-                Arena arena = blubwars.getArenaManager().getArena(player);
-                if (e.getPlayer().getLocation().getY() < 0){
-                    e.getPlayer().setHealth(0);
-                }
-                if (e.getPlayer().getVehicle() != null && e.getPlayer().getVehicle().getType().equals(EntityType.CHICKEN)){
-                    e.getPlayer().getVehicle().setVelocity(player.getLocation().getDirection().multiply(2));
-                }
-                if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))) != null && Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))).getLocation()
-                        .distance(player.getLocation()) > 5){
-                    Cat cat = (Cat) Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player)));
-                    if (cat.getOwner() == null){
-                        cat.setOwner(player);
+            if (blubwars.getArenaManager().getArena(e.getPlayer()) != null) {
+                if (blubwars.getArenaManager().getArena(e.getPlayer()).getState().equals(GameState.LIVE)) {
+                    Player player = e.getPlayer();
+                    Arena arena = blubwars.getArenaManager().getArena(player);
+                    if (e.getPlayer().getLocation().getY() < 0) {
+                        e.getPlayer().setHealth(0);
+                    }
+                    if (e.getPlayer().getVehicle() != null && e.getPlayer().getVehicle().getType().equals(EntityType.CHICKEN)) {
+                        e.getPlayer().getVehicle().setVelocity(player.getLocation().getDirection().multiply(2));
+                    }
+                    try {
+                        if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))) != null) {
+                            Cat cat = (Cat) Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player)));
+                            if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))).getLocation()
+                                    .distance(player.getLocation()) > 5) {
+                                if (cat.getOwner() == null) {
+                                    cat.setOwner(player);
+                                    cat.setSitting(false);
+                                }
+                            }
+                        }
+                    } catch (NullPointerException ex){
                     }
                 }
-            }
         }
     }
 

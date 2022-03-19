@@ -144,8 +144,6 @@ public class ShopGui {
         createItem(potion,ChatColor.BLUE +"Heath potion", ChatColor.GRAY +
                 "Cost: 1 " + ChatColor.BLUE + "tropical fish",34,1,null,0);
 
-
-
         player.openInventory(shopgui);
     }
 
