@@ -5,6 +5,7 @@ import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
 import com.blub.blubwars.runnable.game.Dropper;
+import com.blub.blubwars.utils.ArenaSchematics;
 import com.blub.blubwars.utils.NoPlacingCuboids;
 import com.blub.blubwars.utils.SetPlayerStartInventory;
 import org.bukkit.*;
@@ -35,6 +36,7 @@ public class Game {
     }
 
     public void start() {
+        new ArenaSchematics(arena,blubwars).saveSchematic();
         arena.setState(GameState.LIVE);
         noPlacingCuboids.CreateCuboids();
         arena.getWorld().setTime(0);

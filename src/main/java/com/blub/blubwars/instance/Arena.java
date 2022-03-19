@@ -1,7 +1,7 @@
 package com.blub.blubwars.instance;
 
 import com.blub.blubwars.Blubwars;
-import com.blub.blubwars.utils.ResetArena;
+import com.blub.blubwars.utils.ArenaSchematics;
 import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
@@ -108,7 +108,7 @@ public class Arena {
                 game.getVillagerShop().remove(villagerUUID);
             }
             game.getVillagerShop().clear();
-            new ResetArena(this);
+            new ArenaSchematics(this,blubwars).pasteSchematic();
         }
         sendTitle("", "");
         state = GameState.RECRUITING;
@@ -117,7 +117,6 @@ public class Arena {
             countdown = new Countdown(blubwars, this);
         } catch (IllegalStateException e){}
         game = new Game(this,blubwars);
-        new ResetArena(this);
     }
 
     // Tools
@@ -183,6 +182,7 @@ public class Arena {
     // Manager
 
     public int getId() { return id; }
+    public String getName() { return blubwars.getConfig().getString("arenas." + id + ".name"); }
     public World getWorld(){ return spawn.getWorld();}
 
     public GameState getState() { return state; }

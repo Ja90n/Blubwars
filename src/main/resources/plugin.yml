@@ -3,6 +3,7 @@ version: '0.1-ALPHA'
 main: com.blub.blubwars.Blubwars
 api-version: 1.18
 authors: [ Blub ]
-website: www.blubdev.com
+website: www.blubdev.com]
+depend: [FastAsyncWorldEdit]
 commands:
   blubwars:
