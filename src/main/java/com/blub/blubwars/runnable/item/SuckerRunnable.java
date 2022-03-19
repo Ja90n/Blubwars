@@ -1,4 +1,4 @@
-package com.blub.blubwars.utils;
+package com.blub.blubwars.runnable.item;
 
 import com.blub.blubwars.Blubwars;
 import org.bukkit.Location;

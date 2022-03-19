@@ -9,11 +9,11 @@ import org.bukkit.command.TabCompleter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainTabCompleter implements TabCompleter {
+public class BlubwarsTabCompleter implements TabCompleter {
 
     private Blubwars blubwars;
 
-    public MainTabCompleter(Blubwars blubwars) {
+    public BlubwarsTabCompleter(Blubwars blubwars) {
         this.blubwars = blubwars;
     }
 

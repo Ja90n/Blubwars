@@ -1,4 +1,4 @@
-package com.blub.blubwars.runnable;
+package com.blub.blubwars.runnable.game;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.enums.Team;

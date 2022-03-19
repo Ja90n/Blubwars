@@ -9,11 +9,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class MainCommand implements CommandExecutor {
+public class BlubwarsCommand implements CommandExecutor {
 
     private Blubwars blubwars;
 
-    public MainCommand(Blubwars blubwars) {
+    public BlubwarsCommand(Blubwars blubwars) {
         this.blubwars = blubwars;
     }
 

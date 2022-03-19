@@ -1,8 +1,8 @@
 package com.blub.blubwars;
 
 import com.blub.blubwars.listener.*;
-import com.blub.blubwars.command.MainCommand;
-import com.blub.blubwars.command.MainTabCompleter;
+import com.blub.blubwars.command.BlubwarsCommand;
+import com.blub.blubwars.command.BlubwarsTabCompleter;
 import com.blub.blubwars.instance.Arena;
 import com.blub.blubwars.manager.ArenaManager;
 import com.blub.blubwars.manager.ConfigManager;
@@ -18,6 +18,7 @@ public final class Blubwars extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        // Setting up bStats
         int pluginId = 14655;
         Metrics metrics = new Metrics(this, pluginId);
 
@@ -35,8 +36,8 @@ public final class Blubwars extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ItemListeners(this), this);
 
         // Register command
-        getCommand("blubwars").setExecutor(new MainCommand(this));
-        getCommand("blubwars").setTabCompleter(new MainTabCompleter(this));
+        getCommand("blubwars").setExecutor(new BlubwarsCommand(this));
+        getCommand("blubwars").setTabCompleter(new BlubwarsTabCompleter(this));
 
         // Enable message
         Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "Enabling the " + ChatColor.BOLD.toString() +

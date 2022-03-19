@@ -5,20 +5,13 @@ import com.blub.blubwars.utils.ResetArena;
 import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
-import com.blub.blubwars.runnable.Countdown;
+import com.blub.blubwars.runnable.game.Countdown;
 import com.google.common.collect.TreeMultimap;
 import org.bukkit.*;
-import org.bukkit.block.Block;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
-import java.io.*;
 import java.util.*;
-
-import static org.bukkit.Bukkit.addRecipe;
-import static org.bukkit.Bukkit.getServer;
 
 public class Arena {
 

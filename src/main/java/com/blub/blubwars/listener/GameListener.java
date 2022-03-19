@@ -4,38 +4,25 @@ import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.gui.ShopGui;
 import com.blub.blubwars.instance.Arena;
-import com.blub.blubwars.manager.ConfigManager;
-import com.blub.blubwars.runnable.CatRespawn;
-import com.blub.blubwars.runnable.PlayerRespawn;
+import com.blub.blubwars.runnable.respawn.CatRespawn;
+import com.blub.blubwars.runnable.respawn.PlayerRespawn;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Cat;
-import org.bukkit.entity.Fireball;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockExplodeEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import org.bukkit.event.weather.WeatherEvent;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.HashMap;
-import java.util.jar.JarEntry;
 
 public class GameListener implements Listener {
 
@@ -53,6 +40,16 @@ public class GameListener implements Listener {
                 Arena arena = blubwars.getArenaManager().getArena(player);
                 if (e.getPlayer().getLocation().getY() < 0){
                     e.getPlayer().setHealth(0);
+                }
+                if (e.getPlayer().getVehicle() != null && e.getPlayer().getVehicle().getType().equals(EntityType.CHICKEN)){
+                    e.getPlayer().getVehicle().setVelocity(player.getLocation().getDirection().multiply(2));
+                }
+                if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))) != null && Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))).getLocation()
+                        .distance(player.getLocation()) > 5){
+                    Cat cat = (Cat) Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player)));
+                    if (cat.getOwner() == null){
+                        cat.setOwner(player);
+                    }
                 }
             }
         }
@@ -81,7 +78,16 @@ public class GameListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent e) {
         if (blubwars.getArenaManager().getArena(e.getEntity().getPlayer()) != null) {
             if (blubwars.getArenaManager().getArena(e.getEntity().getPlayer()).getState().equals(GameState.LIVE)){
+                Arena arena = blubwars.getArenaManager().getArena(e.getEntity().getPlayer());
                 Player player = e.getEntity();
+                if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))) != null){
+                    Cat cat = (Cat) Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player)));
+                    if (cat.getOwner().equals(player)){
+                        cat.setSitting(true);
+                        cat.setOwner(null);
+                        cat.setTamed(true);
+                    }
+                }
                 e.getDrops().removeIf(is -> !(is.getType().equals(Material.COD) || is.getType().equals(Material.SALMON)));
                 new PlayerRespawn(player,blubwars.getArenaManager().
                         getArena(e.getEntity().getPlayer()), blubwars).start();

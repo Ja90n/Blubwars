@@ -2,8 +2,7 @@ package com.blub.blubwars.listener;
 
 import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.instance.Arena;
-import com.blub.blubwars.utils.SuckerRunnable;
-import org.bukkit.Bukkit;
+import com.blub.blubwars.runnable.item.SuckerRunnable;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -12,12 +11,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
 import org.spigotmc.event.entity.EntityDismountEvent;
 

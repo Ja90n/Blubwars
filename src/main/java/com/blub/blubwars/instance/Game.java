@@ -4,7 +4,7 @@ import com.blub.blubwars.Blubwars;
 import com.blub.blubwars.enums.GameState;
 import com.blub.blubwars.manager.ConfigManager;
 import com.blub.blubwars.enums.Team;
-import com.blub.blubwars.runnable.Dropper;
+import com.blub.blubwars.runnable.game.Dropper;
 import com.blub.blubwars.utils.NoPlacingCuboids;
 import com.blub.blubwars.utils.SetPlayerStartInventory;
 import org.bukkit.*;
