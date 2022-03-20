@@ -73,14 +73,15 @@ public class GameListener implements Listener {
             if (blubwars.getArenaManager().getArena(e.getEntity().getPlayer()).getState().equals(GameState.LIVE)){
                 Arena arena = blubwars.getArenaManager().getArena(e.getEntity().getPlayer());
                 Player player = e.getEntity();
-                if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))) != null){
+
+                try {
                     Cat cat = (Cat) Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player)));
                     if (cat.getOwner().equals(player)){
                         cat.setSitting(true);
                         cat.setOwner(null);
                         cat.setTamed(true);
                     }
-                }
+                } catch (Exception ex){}
                 e.getDrops().removeIf(is -> !(is.getType().equals(Material.COD) || is.getType().equals(Material.SALMON)));
                 new PlayerRespawn(player,blubwars.getArenaManager().
                         getArena(e.getEntity().getPlayer()), blubwars).start();
@@ -99,16 +100,16 @@ public class GameListener implements Listener {
         } else if (e.getRightClicked().getType().equals(EntityType.CAT)){
             Player player = e.getPlayer();
             for (Arena arena : blubwars.getArenaManager().getArenas()){
-                if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))) != null) {
+                try {
                     Cat cat = (Cat) Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player)));
-                    if (e.getRightClicked().getUniqueId().equals(cat.getUniqueId())){
+                    if (e.getRightClicked().getUniqueId().equals(cat.getUniqueId())) {
                         if (cat.getOwner() == null) {
                             cat.setOwner(player);
                             cat.setSitting(false);
                             player.getInventory().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
                         }
                     }
-                }
+                } catch (Exception ex){}
             }
         }
     }
