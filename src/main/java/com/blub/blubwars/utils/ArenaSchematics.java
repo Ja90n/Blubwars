@@ -30,24 +30,26 @@ public class ArenaSchematics {
     }
 
     public void saveSchematic(){
-        CuboidRegion region = new CuboidRegion(BukkitAdapter.adapt(arena.getWorld()),
-                BukkitAdapter.asBlockVector(ConfigManager.getPosition(arena,1)),
-                BukkitAdapter.asBlockVector(ConfigManager.getPosition(arena,2)));
-        BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
-
-        EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(region.getWorld(), -1);
-
-        ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(editSession, region, clipboard, region.getMinimumPoint());
-        forwardExtentCopy.setCopyingEntities(true);
-        Operations.complete(forwardExtentCopy);
-
         File file = new File(blubwars.getDataFolder().getAbsolutePath() + "/" + arena.getName() + ".schem");
-        try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
-            writer.write(clipboard);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!file.exists()){
+            CuboidRegion region = new CuboidRegion(BukkitAdapter.adapt(arena.getWorld()),
+                    BukkitAdapter.asBlockVector(ConfigManager.getPosition(arena,1)),
+                    BukkitAdapter.asBlockVector(ConfigManager.getPosition(arena,2)));
+            BlockArrayClipboard clipboard = new BlockArrayClipboard(region);
+
+            EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(region.getWorld(), -1);
+
+            ForwardExtentCopy forwardExtentCopy = new ForwardExtentCopy(editSession, region, clipboard, region.getMinimumPoint());
+            forwardExtentCopy.setCopyingEntities(true);
+            Operations.complete(forwardExtentCopy);
+
+            try (ClipboardWriter writer = BuiltInClipboardFormat.SPONGE_SCHEMATIC.getWriter(new FileOutputStream(file))) {
+                writer.write(clipboard);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

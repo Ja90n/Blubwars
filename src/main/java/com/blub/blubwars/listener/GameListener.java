@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class GameListener implements Listener {
 
@@ -34,30 +35,16 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e){
-            if (blubwars.getArenaManager().getArena(e.getPlayer()) != null) {
-                if (blubwars.getArenaManager().getArena(e.getPlayer()).getState().equals(GameState.LIVE)) {
-                    Player player = e.getPlayer();
-                    Arena arena = blubwars.getArenaManager().getArena(player);
-                    if (e.getPlayer().getLocation().getY() < 0) {
-                        e.getPlayer().setHealth(0);
-                    }
-                    if (e.getPlayer().getVehicle() != null && e.getPlayer().getVehicle().getType().equals(EntityType.CHICKEN)) {
-                        e.getPlayer().getVehicle().setVelocity(player.getLocation().getDirection().multiply(2));
-                    }
-                    try {
-                        if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))) != null) {
-                            Cat cat = (Cat) Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player)));
-                            if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))).getLocation()
-                                    .distance(player.getLocation()) > 5) {
-                                if (cat.getOwner() == null) {
-                                    cat.setOwner(player);
-                                    cat.setSitting(false);
-                                }
-                            }
-                        }
-                    } catch (NullPointerException ex){
-                    }
+        if (blubwars.getArenaManager().getArena(e.getPlayer()) != null) {
+            if (blubwars.getArenaManager().getArena(e.getPlayer()).getState().equals(GameState.LIVE)) {
+                Player player = e.getPlayer();
+                if (e.getPlayer().getLocation().getY() < 0) {
+                    e.getPlayer().setHealth(0);
                 }
+                if (e.getPlayer().getVehicle() != null && e.getPlayer().getVehicle().getType().equals(EntityType.CHICKEN)) {
+                    e.getPlayer().getVehicle().setVelocity(player.getLocation().getDirection().multiply(2));
+                }
+            }
         }
     }
 
@@ -107,6 +94,20 @@ public class GameListener implements Listener {
             for (Arena arena : blubwars.getArenaManager().getArenas()){
                 if (arena.getGame().getVillagerShop().containsValue(e.getRightClicked().getUniqueId())){
                     new ShopGui(e.getPlayer(), blubwars, arena);
+                }
+            }
+        } else if (e.getRightClicked().getType().equals(EntityType.CAT)){
+            Player player = e.getPlayer();
+            for (Arena arena : blubwars.getArenaManager().getArenas()){
+                if (Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player))) != null) {
+                    Cat cat = (Cat) Bukkit.getEntity(arena.getCatUUID(arena.getTeam(player)));
+                    if (e.getRightClicked().getUniqueId().equals(cat.getUniqueId())){
+                        if (cat.getOwner() == null) {
+                            cat.setOwner(player);
+                            cat.setSitting(false);
+                            player.getInventory().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
+                        }
+                    }
                 }
             }
         }

@@ -114,7 +114,7 @@ public class GuiListeners implements Listener {
                         new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),
                                 3).giveItem(new ItemStack(Material.DIAMOND_SWORD),1);
                     case CHAINMAIL_LEGGINGS:
-                        new GivePlayerItem(player,new ItemStack(Material.COD),40).giveArmor("chain");
+                        new GivePlayerItem(player,new ItemStack(Material.COD),15).giveArmor("chain");
                         break;
                     case IRON_LEGGINGS:
                         new GivePlayerItem(player,new ItemStack(Material.SALMON),10).giveArmor("iron");
@@ -161,6 +161,15 @@ public class GuiListeners implements Listener {
                         potion.setItemMeta(potionMeta);
                         new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),1).giveItem(potion,1);
                         break;
+                    case TNT:
+                        new GivePlayerItem(player,new ItemStack(Material.COD),10).giveItem(new ItemStack(Material.TNT),1);
+                        break;
+                    case LEAD:
+                        ItemStack lead = new ItemStack(Material.LEAD);
+                        ItemMeta leadMeta = lead.getItemMeta();
+                        leadMeta.setDisplayName(ChatColor.BLUE + "Cat claimer");
+                        lead.setItemMeta(leadMeta);
+                        new GivePlayerItem(player,new ItemStack(Material.TROPICAL_FISH),15).giveItem(lead,1);
                 }
             }
         }

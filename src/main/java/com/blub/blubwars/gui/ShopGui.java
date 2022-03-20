@@ -94,7 +94,7 @@ public class ShopGui {
 
         // Chain
         createItem(new ItemStack(Material.CHAINMAIL_LEGGINGS),ChatColor.GRAY + "Chainmail armor",
-                ChatColor.GRAY + "Cost: 40 cod", 12,1,null,0);
+                ChatColor.GRAY + "Cost: 15 cod", 12,1,null,0);
 
         // Iron
         createItem(new ItemStack(Material.IRON_LEGGINGS),ChatColor.GOLD + "Iron armor",

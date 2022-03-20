@@ -29,11 +29,15 @@ public class BlockListeners implements Listener {
                         for (Block block : cuboid.getBlocks()) {
                             if (block.getLocation().equals(e.getBlock().getLocation())) {
                                 e.setCancelled(true);
-                                e.getPlayer().sendMessage(ChatColor.RED + "You can not place this block!");
+                                e.getPlayer().sendMessage(ChatColor.RED + "You can not place this block here!");
                             }
                         }
                     }
                 } catch (NullPointerException exception){}
+                if (!arena.getArenaCuboid().contains(e.getBlock())){
+                    e.setCancelled(true);
+                    e.getPlayer().sendMessage(ChatColor.RED + "You can not place this block here!");
+                }
             }
         }
     }

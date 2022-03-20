@@ -9,6 +9,7 @@ import com.blub.blubwars.runnable.game.Countdown;
 import com.google.common.collect.TreeMultimap;
 import org.bukkit.*;
 import org.bukkit.entity.Cat;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -113,6 +114,9 @@ public class Arena {
             }
             game.getVillagerShop().clear();
             new ArenaSchematics(this,blubwars).pasteSchematic();
+            for (Entity entity : getWorld().getEntities()){
+                entity.remove();
+            }
         }
         sendTitle("", "");
         state = GameState.RECRUITING;

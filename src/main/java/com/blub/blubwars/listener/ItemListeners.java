@@ -21,8 +21,8 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.util.Vector;
 import org.spigotmc.event.entity.EntityDismountEvent;
 
@@ -67,6 +67,26 @@ public class ItemListeners implements Listener {
                     }
                 }
             }
+        } else if (e.getAction().equals(Action.LEFT_CLICK_AIR) || e.getAction().equals(Action.LEFT_CLICK_BLOCK)){
+            if (!e.getPlayer().getPassengers().isEmpty()){
+                Entity target = e.getPlayer().getPassengers().get(0);
+                e.getPlayer().removePassenger(target);
+                target.setVelocity(e.getPlayer().getLocation().getDirection().multiply(2).setY(2));
+            }
+        }
+    }
+
+    @EventHandler
+    public void onRightClickAtEntity(PlayerInteractEntityEvent e){
+        if (blubwars.getArenaManager().getArena(e.getPlayer()) != null){
+            Player player = e.getPlayer();
+            if (e.getRightClicked() instanceof Player){
+                Player target = (Player) e.getRightClicked();
+                if (player.getInventory().getItemInMainHand().getType().equals(Material.SADDLE)){
+                    player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
+                    target.addPassenger(player);
+                }
+            }
         }
     }
 
@@ -84,7 +104,7 @@ public class ItemListeners implements Listener {
                 Cuboid teamBase = new Cuboid(ConfigManager.getPosition(arena,1,team),ConfigManager.getPosition(arena,2,team));
                 for (Block block : e.blockList()){
                     if (teamBase.contains(block)){
-                        e.setCancelled(true);
+                       e.setCancelled(true);
                     }
                 }
             }
@@ -95,7 +115,7 @@ public class ItemListeners implements Listener {
     public void onTntPlace(BlockPlaceEvent e){
         if (e.getBlock().getType().equals(Material.TNT)){
             e.getBlock().setType(Material.AIR);
-            e.getBlock().getWorld().spawnEntity(e.getBlock().getLocation(), EntityType.PRIMED_TNT);
+            e.getBlock().getWorld().spawnEntity(e.getBlock().getLocation(),EntityType.PRIMED_TNT);
         }
     }
 
@@ -110,9 +130,11 @@ public class ItemListeners implements Listener {
     public void onExplosion(EntityExplodeEvent e){
         for (Arena arena : blubwars.getArenaManager().getArenas()){
             if (e.getEntity().getWorld().equals(arena.getWorld())){
-                for (Entity entity : e.getEntity().getNearbyEntities(5,5,5)){
-                    Vector vector = entity.getLocation().toVector().subtract(e.getLocation().toVector()).multiply(5);
-                    entity.setVelocity(vector);
+                if (e.getEntity().getType().equals(EntityType.FIREBALL)){
+                    for (Entity entity : e.getEntity().getNearbyEntities(5,5,5)){
+                        Vector vector = entity.getLocation().toVector().subtract(e.getLocation().toVector()).multiply(5);
+                        entity.setVelocity(vector);
+                    }
                 }
             }
             for (Team team : Team.values()){
